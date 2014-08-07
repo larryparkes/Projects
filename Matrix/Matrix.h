@@ -1,11 +1,10 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-
-
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <cassert>
 
 using std::iostream;
 using std::ostream;
@@ -18,6 +17,20 @@ const int maxcols = 10000;
 
 class Matrix
 {
+private: 
+    inline void Set(int row, int col, int value)
+    {
+        assert(row >= 0 && row < GetMatrixRows());
+        assert(col >= 0 && row < GetMatrixCols());
+        ePtr[row * GetMatrixRows() + col] = value;
+    }
+    
+    inline void Set(int index, int value)
+    {
+        assert(index >= 0 && index < (GetMatrixRows() * GetMatrixCols()));
+        ePtr[index] = value;
+    }
+    
 public:
 	// default constructor
 	Matrix()
@@ -36,10 +49,7 @@ public:
 			ePtr[index] = 0;
 		}
 
-
-
 		cout << "Default Constructor Called .... and ePtr is " << ePtr << endl;
-
 	}
 
 	// constructor
@@ -185,7 +195,8 @@ public:
 		}
 
 		// set the element value
-		this->ePtr[index] = val;
+		//this->ePtr[index] = val;
+        Set(index, val);
 	}
 
 	// set matrix element given RC format
@@ -194,20 +205,18 @@ public:
 		// check the validity of the RC format
 		if (((row >= 1 && row <= this->mRows) && (col >= 1 && col <= this->mCols)))
 		{
+            Set(row - 1, col - 1, val); 
 			//convert row col format to array index
 			//		cout << " set up of values" << endl;
-			int index = (row - 1) * this->GetMatrixCols() + (col - 1);
+			//int index = (row - 1) * this->GetMatrixCols() + (col - 1);
 			// look up the array element and set it to val
-			this->SetMatrixElement(index, val);
+			//this->SetMatrixElement(index, val);
 		}
 		else
 		{
 			cout << " row = " << row << " col = " << col << endl;
 			cout << "row or col specification out of range" << endl;
 		}
-
-		return;
-
 	}
 
 	// get the number of rows in the matrix array
@@ -282,8 +291,7 @@ public:
 			for (int index = 0; index < size; index++)
 			{
 				//		this->ePtr[index] = this->ePtr[index] - rhside.ePtr[index];
-				this->SetMatrixElement(index, (this->GetMatrixElement(index)
-					- rhside.GetMatrixElement(index)));
+				Set(index, (this->GetMatrixElement(index) - rhside.GetMatrixElement(index)));
 			}
 			return *this;
 		}
@@ -381,9 +389,11 @@ public:
 				for (int k = 0; k < sumIndex; k++)
 //				for (int k = 0; k < this->GetMatrixCols(); k++)
 				{
-					temp.SetRCMatrixElement(i + 1, j + 1, result
-						+= this->GetRCMatrixElement(i + 1, k + 1)
+					temp.Set(i, j, result += this->GetRCMatrixElement(i + 1, k + 1)
 						* rhside.GetRCMatrixElement(k + 1, j + 1));
+					//temp.SetRCMatrixElement(i + 1, j + 1, result
+					//	+= this->GetRCMatrixElement(i + 1, k + 1)
+					//	* rhside.GetRCMatrixElement(k + 1, j + 1));
 //					temp.ePtr[i*colIndex + j] += this->ePtr[i*colIndex + k] * rhside.ePtr[k*rowIndex + j];
 //					temp.ePtr[i*rhside.GetMatrixCols() + j] += this->ePtr[i*rhside.GetMatrixCols() + k] * rhside.ePtr[k*this->GetMatrixRows() + j];
 				}
@@ -571,8 +581,10 @@ public:
 		{
 			for (int jIndex = 0; jIndex < cols; ++jIndex)
 			{
-				temp.SetRCMatrixElement(iIndex + 1, jIndex + 1,
-					this->GetRCMatrixElement(jIndex + 1, iIndex + 1));
+                temp.Set(iIndex, jIndex, this->GetRCMatrixElement(jIndex + 1, iIndex + 1));
+
+				//temp.SetRCMatrixElement(iIndex + 1, jIndex + 1,
+				//	this->GetRCMatrixElement(jIndex + 1, iIndex + 1));
 			}
 
 		}
