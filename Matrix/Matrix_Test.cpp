@@ -70,7 +70,7 @@ int main()
 
 		// test subtraction c = c - b
         /// subtraction funcion a = a - b works correctly
-//		testSubtraction();
+		testSubtraction();
 //		system("pause");
 
 		// test matrix transpose
