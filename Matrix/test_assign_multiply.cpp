@@ -19,9 +19,9 @@ int testAssignMultiply()
 
 
 	cout << "set up of the b matrix -  non zero values" << endl;
-	int size = b.GetMatrixSize();
+	int mSize = b.GetMatrixSize();
 	int val = 1;
-	for (int i = 1; i <= size; i++, val++)
+	for (int i = 1; i <= mSize; i++, val++)
 	{
 		b.SetMatrixElement(i - 1, val);
 
@@ -31,9 +31,9 @@ int testAssignMultiply()
 	b.Mprint();
 
 	cout << "set up of the c matrix -  non zero values" << endl;
-	size = c.GetMatrixSize();
+	mSize = c.GetMatrixSize();
 	val = 1;
-	for (int i = 1; i <= size; i++, val++)
+	for (int i = 1; i <= mSize; i++, val++)
 	{
 		c.SetMatrixElement(i - 1, val+2);
 	}

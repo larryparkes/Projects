@@ -16,40 +16,40 @@ int testAssignSubtract()
 
 	//set up the a matrix,
 
-	int size = a.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	int mSize = a.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		a.SetMatrixElement(i, i + 1);
 	}
 
 	//set up the b matrix,
 
-	size = b.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	mSize = b.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		b.SetMatrixElement(i, i + 1);
 	}
 
 	//set up the c matrix,
 
-	size = c.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	mSize = c.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		c.SetMatrixElement(i, i + 1);
 	}
 
 	//set up the d matrix,
 
-	size = d.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	mSize = d.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		d.SetMatrixElement(i, i + 1);
 	}
 
 	//set up the e matrix,
 
-	size = e.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	mSize = e.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		e.SetMatrixElement(i, i + 1);
 	}

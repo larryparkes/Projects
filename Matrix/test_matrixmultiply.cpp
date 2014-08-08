@@ -18,9 +18,9 @@ int testMatrixMultiply()
 		// set up the matricies
 
 		cout << "set up of the a matrix -  non zero values" << endl;
-		int size = a.GetMatrixSize();
+		int mSize = a.GetMatrixSize();
 		int val = 1;
-		for (int i = 0; i < size; i++, val++)
+		for (int i = 0; i < mSize; i++, val++)
 		{
 			srand(i);
 			val = (int)rand() % 5;
@@ -39,9 +39,9 @@ int testMatrixMultiply()
 
 
 		cout << "set up of the b matrix -  non zero values" << endl;
-		size = b.GetMatrixSize();
+		mSize = b.GetMatrixSize();
 		//int val = 1;
-		for (int i = 0; i < size; i++, val++)
+		for (int i = 0; i < mSize; i++, val++)
 		{
 			srand(i);
 			val = (int)rand() % 5;
@@ -57,10 +57,21 @@ int testMatrixMultiply()
 		b.Mprint();
 //		system("pause");
 
+        cout << " Check a should be equal to b" << endl << endl;
+        if (a == b)
+        {
+            cout << " Success a = b \n" << endl;
+
+        }
+        else
+        {
+            cout << " Problem .... a != b"  << endl;
+        }
+
 		cout << "set up of the c matrix -  non zero values" << endl;
-		size = c.GetMatrixSize();
-		//int val = 1;
-		for (int i = 0; i < size; i++, val++)
+		mSize = c.GetMatrixSize();
+//		int val = 1;
+		for (int i = 0; i < mSize; i++, val++)
 		{
 			srand(i);
 			val = (int)rand() % 3;

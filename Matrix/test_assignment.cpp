@@ -1,4 +1,4 @@
-// 
+//
 // Matrix class test program.
 #include <iostream>
 using std::cout;
@@ -13,13 +13,13 @@ int testAssignment()
 
 	//set up the a matrix,
 
-	int size = a.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	int mSize = a.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		a.SetMatrixElement(i, i + 1);
 	}
 
-	
+
 	cout << "a is" << endl;
 	a.Mprint();
 	cout << " b is" << endl;
@@ -39,6 +39,6 @@ int testAssignment()
 	cout << " b is now" << endl;
 	b.Mprint();
 
-	
+
 	return 0;
 }

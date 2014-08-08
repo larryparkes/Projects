@@ -1,4 +1,4 @@
-// 
+//
 // Matrix class test program.
 #include <iostream>
 using std::cout;
@@ -13,8 +13,8 @@ int testEquality()
 
 	//set up the a matrix,
 
-	int size = a.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	int mSize = a.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		a.SetMatrixElement(i, i + 1);
 	}
@@ -29,7 +29,7 @@ int testEquality()
 	b.Mprint();
 
 	if (b == a)
-	{ 
+	{
 		cout << "Success b is equal to a" << endl<< endl;
 	}
 	else

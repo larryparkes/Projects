@@ -29,60 +29,67 @@ int main()
 {
 	{
 		// test the constructors and destructor
-		/*testConstructorDestructor();
-		system("pause");*/
+//		testConstructorDestructor();
+//		system("pause");*/
 
 		// test the getters and setters
-		/*testGetnSetters();
-		system("pause");*/
+//		testGetnSetters();
+//		system("pause");*/
 
 		// test assignment operator
-		/*testAssignment();
-		system("pause");*/
+//		testAssignment();
+//		system("pause");*/
 
 		// test the get and set to update matrix elements
-		/*testGetandSet();
-		system("pause");*/
+//		testGetandSet();
+//		system("pause");*/
 
 		// test assignment add operator
-		/*testAssignAdd();
-		system("pause");*/
+		/// assign add funcion a += b works correctly
+//		testAssignAdd();
+//		system("pause");*/
 
-		/*testAdd();
-		system("pause");*/
+        /// add funcion a = a + b works correctly
+//		testAdd();
+//		system("pause");*/
 
 		// test matrix assign and multiply a *= b;
-		/*testAssignMultiply();
-		system("pause");*/
+		/// assign multiply funcion a *= b works correctly
+//		testAssignMultiply();
+//		system("pause");*/
 
 		 //test matrix multiplication c = a x b;
-		/*testMMltiplication();
-		system("pause");*/
+		/// multiply funcion a = a * b works correctly
+//		testMMltiplication();
+//		system("pause");*/
 
 		//test assignment subtract c -= b
-		/*testAssignSubtract();
-		system("pause");*/
+        /// assign subtract funcion a -= b works correctly
+//		testAssignSubtract();
+//		system("pause");*/
 
 		// test subtraction c = c - b
-		/*testSubtraction();
-		system("pause");*/
+        /// subtraction funcion a = a - b works correctly
+//		testSubtraction();
+//		system("pause");
 
 		// test matrix transpose
-		/*testTranspose();
-		system("pause");*/
-
-
+		/// transpose funcion a.transpose() works correctly
+//		testTranspose();
+//		system("pause");
 
 		// test matrix equality
-	/*	testEquality();
-		system("pause");*/
+		/// relational operator == equality operator works correctly
+//		testEquality();
+//		system("pause");*/
 
 		// test matrix, inequality
-		/*testInequality();
-		system("pause");*/
+//		testInequality();
+//		system("pause");*/
 
 		//test random matrix
-		testMatrixMultiply();
+		/// large matrix multiply funcion a = a * a works correctly
+//		testMatrixMultiply();
 //		system("pause");
 
 

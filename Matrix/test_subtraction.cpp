@@ -12,44 +12,44 @@ int testSubtraction()
 	// attempt to add non square matricies m x n + m x y, m x y + n x y & m x y + n x z
 	// a is a m x n, b is a m x y, c n x y, d is a n x z
 
-	Matrix a(4, 2), b(4, 5), c(2, 5), d(2, 3), e;
+	Matrix a(10, 5), b(4, 5), c(4, 10), d(2, 3), e;
 
 	//set up the a matrix,
 
-	int size = a.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	int mSize = a.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		a.SetMatrixElement(i, i + 1);
 	}
 
 	//set up the b matrix,
 
-	size = b.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	mSize = b.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		b.SetMatrixElement(i, i + 1);
 	}
 
 	//set up the c matrix,
 
-	size = c.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	mSize = c.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		c.SetMatrixElement(i, i + 1);
 	}
 
 	//set up the d matrix,
 
-	size = d.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	mSize = d.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		d.SetMatrixElement(i, i + 1);
 	}
 
 	//set up the e matrix,
 
-	size = e.GetMatrixSize();
-	for (int i = 0; i < size; i++)
+	mSize = e.GetMatrixSize();
+	for (int i = 0; i < mSize; i++)
 	{
 		e.SetMatrixElement(i, i + 1);
 	}
@@ -97,6 +97,7 @@ int testSubtraction()
 	cout << "e is = a " << endl;
 	e.Mprint();
 
+    cout << " Subtractinbg e = e - a \n" << endl;
 	e = e - a;
 	cout << "e = e - a, and now e is " << endl;
 	e.Mprint();

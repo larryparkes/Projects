@@ -17,33 +17,34 @@ const int maxcols = 10000;
 
 class Matrix
 {
-private: 
+private:
     inline void Set(int row, int col, int value)
     {
-        assert(row >= 0 && row < GetMatrixRows());
-        assert(col >= 0 && row < GetMatrixCols());
-        ePtr[row * GetMatrixRows() + col] = value;
+        assert(row >= 0 && row < this->GetMatrixRows());
+        assert(col >= 0 && col < this->GetMatrixCols());
+        this->ePtr[row * this->GetMatrixCols() + col] = value;
     }
-    
+
     inline void Set(int index, int value)
     {
-        assert(index >= 0 && index < (GetMatrixRows() * GetMatrixCols()));
-        ePtr[index] = value;
+        assert(index >= 0 && index < this->GetMatrixSize());
+        this->ePtr[index] = value;
+
     }
-    
+
 public:
 	// default constructor
 	Matrix()
 		:mRows(2), mCols(2)
 	{
-		// calculate the size of the matrix array
-		int size = mRows * mCols;
+		// calculate the mSize of the matrix array
+		int mSize = mRows * mCols;
 
-		// set the size of the matrix array
-		this->ePtr = new int[size];
+		// set the mSize of the matrix array
+		this->ePtr = new int[mSize];
 
 		// set the elements of the matrix array to zero
-		for (int index = 0; index < size; index++)
+		for (int index = 0; index < mSize; index++)
 		{
 			//this->SetMatrixElement(index, 0);
 			ePtr[index] = 0;
@@ -76,13 +77,13 @@ public:
 		{
 			mCols = cols;
 		}
-		int size = mRows * mCols;
+		int mSize = mRows * mCols;
 
 		// allocate space in memory for the element array of matrix
-		ePtr = new int[size];
+		ePtr = new int[mSize];
 
 		// set all the elements of the martix array to zero
-		for (int index = 0; index < size; index++)
+		for (int index = 0; index < mSize; index++)
 		{
 			ePtr[index] = 0;
 		}
@@ -94,7 +95,7 @@ public:
 	~Matrix()
 	{
 		cout << " Destructor Called... and ePtr points to address  " << this->ePtr << endl;
-		delete[] ePtr;
+		delete[] this->ePtr;
 		this->ePtr = nullptr;
 		cout << " Destructor Complete... and ePtr points to address  " << this->ePtr << endl;
 	}
@@ -103,16 +104,16 @@ public:
 	Matrix(const Matrix & matrixToCopy)
 		:mRows(matrixToCopy.mRows), mCols(matrixToCopy.mCols)
 	{
-		// calculate the size of the array to hold the matrix elements
-		int size = matrixToCopy.GetMatrixRows() * matrixToCopy.GetMatrixCols();
+		/// calculate the mSize of the array to hold the matrix elements
+		//int mSize = matrixToCopy.GetMatrixRows() * matrixToCopy.GetMatrixCols();
 
-		// allocate memory for the new matrix
-		this->ePtr = new int[size];
+		/// allocate memory for the new matrix
+		this->ePtr = new int[matrixToCopy.GetMatrixSize()];
 
-		// copy the elements into the new matrix
-		for (int index = 0; index < size; index++)
+		/// copy the elements into the new matrix
+		for (int index = 0; index < matrixToCopy.GetMatrixSize(); index++)
 		{
-			this->SetMatrixElement(index, matrixToCopy.GetMatrixElement(index));
+			this->Set(index, matrixToCopy.GetMatrixElement(index));
 		}
 
 		cout << " Copy Contructor Called . ..  and ePtr is " << ePtr << endl;
@@ -121,43 +122,52 @@ public:
 	// assignment operator
 	Matrix &operator=(const Matrix &rhside)
 	{
-		// check that we arent attempting self assignment
+        cout << " Assignment Operator Called... " << endl;
+//	    cout << " Assignment Operator Called... the address of this->ePtr is " << (this->ePtr) << endl;
+//        cout << " this matrix dimensions rows = " << this->GetMatrixRows() << "  cols = " << this->GetMatrixCols() << endl;
+//	    cout << " Assignment Operator Called... the address of rhside.ePtr is " << (rhside.ePtr) << endl;
+//	    cout << " rhside matrix dimensions rows = " << rhside.GetMatrixRows() << "  cols = " << rhside.GetMatrixCols() << endl;
+
+		/// check that we arent attempting self assignment
 		if (&rhside != this)
 		{
-	/*		int rsize = rhside.GetMatrixRows() * rhside.GetMatrixCols();
-			int lsize = this->GetMatrixRows() * this->GetMatrixCols();*/
+			/// check to see if the memory allocated for the this matrix is the same as rhs
+			if (this->GetMatrixSize() != rhside.GetMatrixSize())
+			{
+				/// release the memory space for the this matrix array
+//				cout << " 1 Assignment Operator... the address of this->ePtr is " << (this->ePtr) << endl;
+				delete[] this->ePtr;
+				this->ePtr = nullptr;
+//				cout << " 2 Assignment Operator... the address of this->ePtr is " << (this->ePtr) << endl;
+
+				/// allocate the required space for the new this matrix
+				this->ePtr = new int[rhside.GetMatrixSize()];
+//				cout << " 3 Assignment Operator allocation... the address of this->ePtr is " << this->ePtr << endl;
+//              cout << " Assignment Operator Called... the address of rhside.ePtr is " << (rhside.ePtr) << endl;
+			}
+			/// set the this matrix dimensions to that of the rhside
 			this->mRows = rhside.GetMatrixRows();
 			this->mCols = rhside.GetMatrixCols();
 
-			// check to see if the memory allocated for the this matrix is the same as rhs
-			if (this->GetMatrixRows() * this->GetMatrixCols() !=
-				rhside.GetMatrixRows() * rhside.GetMatrixCols())
-			{
-				// release the memory space for the this matrix array
-				delete[] ePtr;
-				this->ePtr = nullptr;
-				// allocate the required space for the new this matrix
-				this->ePtr = new int[rhside.GetMatrixRows() * rhside.GetMatrixCols()];
-			}
+			/// copy the rhs elements into the this matrix
 
-			// copy the rhs elements into the this matrix
-			for (int index = 0; index < rhside.GetMatrixRows() * rhside.GetMatrixCols(); index++)
+			for (int index = 0; index < rhside.GetMatrixSize(); index++)
 				this->SetMatrixElement(index, rhside.GetMatrixElement(index));
 		}
 
-		cout << " Assignment Operator Called... the address of ePtr is " << &ePtr << endl;
+//		cout << " Assignment Operator Complete... the address of this->ePtr is " << this->ePtr << endl;
 		return *this;
 	}
 
 	// print the matrix in row column format
 	void Mprint(void) const
 	{
-		for (int i = 0; i < this->mRows; i++)
+		for (int i = 0; i < this->GetMatrixRows(); i++)
 		{
-			for (int j = 0; j < this->mCols; j++)
+			for (int j = 0; j < this->GetMatrixCols(); j++)
 			{
 //				cout << ePtr[mCols*i + j] << "    ";
-				cout << this->GetRCMatrixElement(i+1, j+1) << "    ";
+				cout << this->GetMatrixRCElement(i+1, j+1) << "    ";
 			}
 			cout << endl;
 		}
@@ -167,50 +177,48 @@ public:
 	// Set Matrix Rows
 	void SetMatrixRows(const int rows)
 	{
-		// validate row range set to default if out of range
+		/// validate row range set to default if out of range
+		// to do
 
-		// set the row dimesnion
+		/// set the row dimesnion
 		this->mRows = rows;
 	}
 
 	// Set Matrix Columns
 	void SetMatrixCols(const int cols)
 	{
-		// validate column range - set to default if out of range
+		/// validate column range - set to default if out of range
+        // to do
 
-		// set the column dimension
+		/// set the column dimension
 		this->mCols = cols;
 	}
 
 	// set the elements of the matrix array
 	void SetMatrixElement(int index, int val)
 	{
-		// check that we are setting an element within the range of the matrix array space
-		int size = this->mRows * this->mCols;
-		if (index < 0 || index > size)
+		/// check that we are setting an element within the range of the matrix array space
+//		int mSize = this->GetMatrixSize();
+		if (index < 0 || index >= this->GetMatrixSize())
 		{
-			// issue an error message
+			/// issue an error message
 			cout << "Element out of range..." << endl;
 			return;
 		}
 
-		// set the element value
+		/// set the element value
 		//this->ePtr[index] = val;
         Set(index, val);
-	}
+ 	}
 
-	// set matrix element given RC format
-	void SetRCMatrixElement(int row, int col, int val)
+	// set matrix element using RC format
+	void SetMatrixRCElement(int row, int col, int val)
 	{
-		// check the validity of the RC format
-		if (((row >= 1 && row <= this->mRows) && (col >= 1 && col <= this->mCols)))
+		/// check the validity of the RC format
+		if (((row >= 1 && row <= this->GetMatrixRows()) && (col >= 1 && col <= this->GetMatrixCols())))
 		{
-            Set(row - 1, col - 1, val); 
-			//convert row col format to array index
-			//		cout << " set up of values" << endl;
-			//int index = (row - 1) * this->GetMatrixCols() + (col - 1);
-			// look up the array element and set it to val
-			//this->SetMatrixElement(index, val);
+            ///convert row col format to array index and set array element to val
+            Set(row - 1, col - 1, val);
 		}
 		else
 		{
@@ -231,7 +239,7 @@ public:
 		return this->mCols;
 	}
 
-	// get the size of the mtrix array
+	// get the mSize of the mtrix array
 	int GetMatrixSize() const
 	{
 		return this->mRows * this->mCols;
@@ -243,12 +251,13 @@ public:
 		return this->ePtr[index];
 	}
 
-	// get RC matrix element from the matrix array
-	int GetRCMatrixElement(const int row, const int col) const
+	// get matrix element RC format from the matrix array
+	int GetMatrixRCElement(const int row, const int col) const
 	{
-		// convert RC format to an index
-		int index = (row - 1) * (this->mCols) + col - 1;
-		//look up the index and return the element
+		/// convert RC format to an index
+		int index = (row - 1) * (this->GetMatrixCols()) + col - 1;
+
+		///look up the index and return the element
 //		return this->ePtr[index];
 		return this->GetMatrixElement(index);
 	}
@@ -256,19 +265,19 @@ public:
 	// asssign add matrices
 	const Matrix &operator+=(const Matrix &rhside)
 	{
-		// check the this and the rhs dimensions, must be the same
+		/// check the this and the rhs dimensions, must be the same
 
 		if ((this->GetMatrixRows() == rhside.GetMatrixRows()) &&
 			(this->GetMatrixCols() == rhside.GetMatrixCols()))
 		{
-			int size = rhside.GetMatrixSize();
-			for (int index = 0; index < size; index++)
+//			int mSize = rhside.GetMatrixSize();
+            /// iterate over the array and add elements
+			for (int index = 0; index < rhside.GetMatrixSize(); index++)
 			{
-				//	this->ePtr[index] = this->ePtr[index] + rhside.ePtr[index];
-				this->SetMatrixElement(index, (this->GetMatrixElement(index)
+				this->Set(index, (this->GetMatrixElement(index)
 					+ rhside.GetMatrixElement(index)));
 			}
-			//cout << "adding done!" << endl;
+			cout << "adding done!" << endl;
 			return *this;
 		}
 		else
@@ -283,15 +292,15 @@ public:
 	// assign subtract matrices
 	const Matrix &operator-=(const Matrix &rhside)
 	{
-		// check the this and the rhs dimensions, must be the same
+		/// check the this and the rhs dimensions, must be the same
 		if ((this->GetMatrixRows() == rhside.GetMatrixRows()) &&
 			(this->GetMatrixCols() == rhside.GetMatrixCols()))
 		{
-			int size = rhside.GetMatrixSize();
-			for (int index = 0; index < size; index++)
+//			int mSize = rhside.GetMatrixSize();
+            /// iterate over the array and subtract
+			for (int index = 0; index < rhside.GetMatrixSize(); index++)
 			{
-				//		this->ePtr[index] = this->ePtr[index] - rhside.ePtr[index];
-				Set(index, (this->GetMatrixElement(index) - rhside.GetMatrixElement(index)));
+				this->Set(index, (this->GetMatrixElement(index) - rhside.GetMatrixElement(index)));
 			}
 			return *this;
 		}
@@ -312,27 +321,27 @@ public:
 			cout << "Multiplication not possible inconsistent matrix dimension" << endl;
 			return *this;
 		}
-		int size = this->GetMatrixRows() * rhside.GetMatrixCols();
+		int mSize = this->GetMatrixRows() * rhside.GetMatrixCols();
 		int index = rhside.GetMatrixRows();
 
 		 set up a temporary matrix to hold the contents of the matrix product
 		Matrix temp(this->GetMatrixRows(), rhside.GetMatrixCols());
 
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < mSize; i++)
 		{
 			int result = 0;
 			for (int j = 0; j < index; j++)
 			{
 			 	temp.ePtr[i] += this->ePtr[(i / temp.mCols)*index + j]
 					* rhside.ePtr[j*temp.mCols + i%temp.mCols];
-				result += this->GetRCMatrixElement(i, j) * rhside.GetRCMatrixElement(j, i)
+				result += this->GetMatrixRCElement(i, j) * rhside.GetMatrixRCElement(j, i)
 
 			}
 		}
 		cout << " Temp is" << endl;
 		temp.Mprint();
 
-		 need adjust the size of the this matrix to hold the contents of the product
+		 need adjust the mSize of the this matrix to hold the contents of the product
 		 set the row and column dimesions to agree with the product results
 		this->mRows = temp.mRows;
 		this->mCols = temp.mCols;
@@ -342,10 +351,10 @@ public:
 
 		delete[] ePtr;
 		this->ePtr = nullptr;
-		this->ePtr = new int[size];
+		this->ePtr = new int[mSize];
 
 		 copy the prodct results into the this matrix array elements
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < mSize; i++)
 		{
 			this->ePtr[i] = temp.ePtr[i];
 		}
@@ -363,59 +372,59 @@ public:
 			cout << "Multiplication not possible inconsistent matrix dimension" << endl;
 			return *this;
 		}
-		//determine the number of elements in the matrix
-		int size = this->GetMatrixRows() * rhside.GetMatrixCols();
+		/// determine the number of elements in the matrix product
+//		int mSize = this->GetMatrixSize();
 
-//		 get the row index - this is the number of rows in the this matrix
-		int rowIndex = this->GetMatrixRows();
+		/// get the row index - this is the number of rows in the this matrix
+//		int rowIndex = this->GetMatrixRows();
 
-		// get the column index - this is the number of columns in the rhside matrix
-		int colIndex = rhside.GetMatrixCols();
+		/// get the column index - this is the number of columns in the rhside matrix
+//		int colIndex = rhside.GetMatrixCols();
 
-		// the final Aij element is given by sum( Bik * Ckj) where k correspond to the
-		//this cols or the rhside rows. k is the number of products to be summed o get the Aij term.
-		int sumIndex = this->GetMatrixCols();
-
-		// set up a temporary matrix to hold the contents of the matrix product
+		/// set up a temporary matrix to hold the contents of the matrix product
 		Matrix temp(this->GetMatrixRows(), rhside.GetMatrixCols());
 
-		for (int i = 0; i < rowIndex; i++)
-//		for (int i = 0; i < this->GetMatrixRows(); i++)
+		/// the final Aij element is given by sum( Bik * Ckj) where k correspond to the
+		/// this cols or the rhside rows. k is the number of products to be summed o get the Aij term.
+//		int sumIndex = this->GetMatrixCols();
+
+//		for (int i = 0; i < rowIndex; i++)
+		for (int i = 0; i < this->GetMatrixRows(); i++)
 		{
-			for (int j = 0; j < colIndex; j++)
-//			for (int j = 0; j < rhside.GetMatrixCols(); j++)
+//			for (int j = 0; j < colIndex; j++)
+			for (int j = 0; j < rhside.GetMatrixCols(); j++)
 			{
 				int result = 0;
-				for (int k = 0; k < sumIndex; k++)
-//				for (int k = 0; k < this->GetMatrixCols(); k++)
+//				for (int k = 0; k < sumIndex; k++)
+				for (int k = 0; k < this->GetMatrixCols(); k++)
 				{
-					temp.Set(i, j, result += this->GetRCMatrixElement(i + 1, k + 1)
-						* rhside.GetRCMatrixElement(k + 1, j + 1));
-					//temp.SetRCMatrixElement(i + 1, j + 1, result
-					//	+= this->GetRCMatrixElement(i + 1, k + 1)
-					//	* rhside.GetRCMatrixElement(k + 1, j + 1));
+  				temp.Set(i, j, result += this->GetMatrixRCElement(i + 1, k + 1)
+						* rhside.GetMatrixRCElement(k + 1, j + 1));
+					//temp.SetMatrixRCElement(i + 1, j + 1, result
+					//	+= this->GetMatrixRCElement(i + 1, k + 1)
+					//	* rhside.GetMatrixRCElement(k + 1, j + 1));
 //					temp.ePtr[i*colIndex + j] += this->ePtr[i*colIndex + k] * rhside.ePtr[k*rowIndex + j];
 //					temp.ePtr[i*rhside.GetMatrixCols() + j] += this->ePtr[i*rhside.GetMatrixCols() + k] * rhside.ePtr[k*this->GetMatrixRows() + j];
 				}
 			}
 		}
-		// need adjust the size of the this matrix to hold the contents of the product
-		// set the row and column dimesions to agree with the product results
+		/// need adjust the mSize of the this matrix to hold the contents of the product
+		/// set the row and column dimesions to agree with the product results
 
 		this->SetMatrixRows(temp.GetMatrixRows());
 		this->SetMatrixCols(temp.GetMatrixCols());
 
-		//detele the element pointer and create a new one large enough to hold all the
-		// elemets of the matrix product
+		/// detele the element pointer and create a new one large enough to hold all the
+		/// elemets of the matrix product
 
-		delete[] ePtr;
+		delete[] this->ePtr;
 		this->ePtr = nullptr;
-		this->ePtr = new int[size];
+		this->ePtr = new int[this->GetMatrixSize()];
 
-		// copy the prodct results into the this matrix array elements
-		for (int i = 0; i < size; i++)
+		/// copy the prodct results into the this matrix array elements
+		for (int i = 0; i < this->GetMatrixSize(); i++)
 		{
-			this->SetMatrixElement(i, temp.GetMatrixElement(i));
+			this->Set(i, temp.GetMatrixElement(i));
 		}
 
 		cout << "multiplication called... " << endl;
@@ -425,18 +434,18 @@ public:
 	// addition of matrices c = a + b;
 	friend const Matrix operator+(const Matrix &lhside, const Matrix &rhside)
 	{
-		// check the lhs and rhs dimensions, must be the same
+		/// check the lhs and rhs dimensions, must be the same
 
 		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
 			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
 		{
 			Matrix temp(rhside.GetMatrixRows(), rhside.GetMatrixCols());
-			int size = rhside.GetMatrixSize();
-			for (int index = 0; index < size; index++)
+//			int mSize = rhside.GetMatrixSize();
+			for (int index = 0; index < rhside.GetMatrixSize(); index++)
 			{
 				temp.SetMatrixElement(index, (lhside.GetMatrixElement(index) + rhside.GetMatrixElement(index)));
 			}
-			//cout << "adding done!" << endl;
+			cout << "adding done! \n" << endl;
 			return temp;
 		}
 		else
@@ -452,25 +461,29 @@ public:
 	// subrtaction of matrices c = a - b;
 	friend const Matrix operator-(const Matrix &lhside, const Matrix &rhside)
 	{
-		// check the lhs and rhs dimensions, must be the same
+		/// check the lhs and rhs dimensions, must be the same
 
 		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
 			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
 		{
 			Matrix temp(rhside.GetMatrixRows(), rhside.GetMatrixCols());
-			int size = rhside.GetMatrixSize();
-			for (int index = 0; index < size; index++)
+//			int mSize = rhside.GetMatrixSize();
+			for (int index = 0; index < rhside.GetMatrixSize(); index++)
 			{
-				temp.SetMatrixElement(index,
-					(lhside.GetMatrixCols() - rhside.GetMatrixCols()));
+//				temp.Set(index,
+//					(lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index)));
+//                temp.Set(index, 10);
+//                temp.SetMatrixElement(index, (lhside.GetMatrixElement(index)-rhside.GetMatrixElement(index)));
+                temp.Set(index, (lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index)));
+
 			}
-			//cout << "subtraction done!" << endl;
+			cout << "subtraction done! \n" << endl;
 			return temp;
 		}
 		else
 		{
 			cout << " Function subrtaction of matrices c = a - b  " << endl;
-			cout << " addition not possible... inconsistent matrix dimensions..." << endl;
+			cout << " Subtraction not possible... inconsistent matrix dimensions..." << endl;
 			// what should we return?????
 			return lhside;
 		}
@@ -487,35 +500,34 @@ public:
 			return lhside;
 		}
 
-		//determine the number of elements in the matrix
-//		int size = lhside.GetMatrixRows() * rhside.GetMatrixCols();
+		///determine the number of elements in the matrix
+//		int mSize = lhside.GetMatrixRows() * rhside.GetMatrixCols();
 
-		// get the row index - this is the number of rows in the this matrix
-		int rowIndex = lhside.GetMatrixRows();
+		/// get the row index - this is the number of rows in the this matrix
+//		int rowIndex = lhside.GetMatrixRows();
 
-		// get the column index - this is the number of columns in the rhside matrix
-		int colIndex = rhside.GetMatrixCols();
+		/// get the column index - this is the number of columns in the rhside matrix
+//		int colIndex = rhside.GetMatrixCols();
 
-		// the final Aij element is given by sum( Bik * Ckj) where k correspond to the
-		//this cols or the rhside rows. k is the number of products to be summed o get the Aij term.
-		int sumIndex = lhside.GetMatrixCols();
 
-		// set up a temporary matrix to hold the contents of the matrix product
+		/// set up a temporary matrix to hold the contents of the matrix product
 		Matrix temp(lhside.GetMatrixRows(), rhside.GetMatrixCols());
 
-		for (int i = 0; i < rowIndex; i++)
+        /// the final Aij element is given by sum( Bik * Ckj) where k correspond to the
+		/// this cols or the rhside rows. k is the number of products to be summed o get the Aij term.
+//		int sumIndex = lhside.GetMatrixCols();
+
+		for (int i = 0; i < lhside.GetMatrixRows(); i++)
 		{
-			for (int j = 0; j < colIndex; j++)
+			for (int j = 0; j < rhside.GetMatrixCols(); j++)
 			{
-//				int result = 0;
-				for (int k = 0; k < sumIndex; k++)
+				int result = 0;
+				for (int k = 0; k < lhside.GetMatrixCols(); k++)
 				{
-//					temp.SetRCMatrixElement(i + 1, j + 1, result
-//						+= lhside.GetRCMatrixElement(i + 1, k + 1)
-//						* rhside.GetRCMatrixElement(k + 1, j + 1));
-//					temp.ePtr[i*colIndex + j] += lhside.ePtr[i*colIndex + k] * rhside.ePtr[k*rowIndex + j];
-					temp.ePtr[i*rhside.GetMatrixCols() + j] += lhside.ePtr[i*rhside.GetMatrixCols() + k] * rhside.ePtr[k*lhside.GetMatrixRows() + j];
-				}
+
+                        temp.Set(i, j, result += lhside.GetMatrixRCElement(i + 1, k + 1)
+						* rhside.GetMatrixRCElement(k + 1, j + 1));
+                }
 			}
 		}
 
@@ -527,17 +539,17 @@ public:
 	friend bool operator==(const Matrix &lhside, const Matrix &rhside)
 	{
 		cout << " Function  equality of Matrices c = a   " << endl;
-		// index is used to step through the elements in the matrix array,
-		// size is the number of elements in the matrix array
+		/// index is used to step through the elements in the matrix array,
+//		/// mSize is the number of elements in the matrix array
 		int index = 0;
 		bool test = false;
-		int size = rhside.GetMatrixSize();
+//		int mSize = rhside.GetMatrixSize();
 
-		// check if the row and column are equal if they are check
+		/// check if the row and column are equal if they are check
 		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
 			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
 		{
-			while (index < size)
+			while (index < rhside.GetMatrixSize())
 			{
 				if (lhside.GetMatrixElement(index) == rhside.GetMatrixElement(index))
 				{
@@ -551,7 +563,7 @@ public:
 				else
 				{
 					test = false;
-					index = size;
+					index = rhside.GetMatrixSize();
 				}
 			}
 			return test;
@@ -567,32 +579,33 @@ public:
 	}
 
 
-	Matrix MatrixTranspose()
+	const Matrix MatrixTranspose()
 	{
 		// set up a temporary matrix - set the temp matrix rows and cols equal to
 		// the cols and rows of the this matrix
-		int cols = this->GetMatrixRows();
-		int rows = this->GetMatrixCols();
-		Matrix temp(rows, cols);
+//		int cols = this->GetMatrixRows();
+//		int rows = this->GetMatrixCols();
+		Matrix temp(this->GetMatrixCols(), this->GetMatrixRows());
 
 		// iterate over the this matrix and set temp Aij = this Aji
 
-		for (int iIndex = 0; iIndex < rows; ++iIndex)
+		for (int i = 0; i < this->GetMatrixCols(); ++i)
 		{
-			for (int jIndex = 0; jIndex < cols; ++jIndex)
+			for (int j = 0; j < this->GetMatrixRows(); ++j)
 			{
-                temp.Set(iIndex, jIndex, this->GetRCMatrixElement(jIndex + 1, iIndex + 1));
+                temp.Set(i, j, this->GetMatrixRCElement(j + 1, i + 1));
 
-				//temp.SetRCMatrixElement(iIndex + 1, jIndex + 1,
-				//	this->GetRCMatrixElement(jIndex + 1, iIndex + 1));
+				//temp.SetMatrixRCElement(iIndex + 1, jIndex + 1,
+				//	this->GetMatrixRCElement(jIndex + 1, iIndex + 1));
 			}
 
 		}
 		// iterate over the array and copy to the this array.
-		int size = cols*rows;
-		for (int index = 0; index < size; ++index)
+		int mSize = this->GetMatrixCols() * this->GetMatrixRows();
+		for (int index = 0; index < mSize; ++index)
 		{
-			this->SetMatrixElement(index, temp.GetMatrixElement(index));
+//			this->SetMatrixElement(index, temp.GetMatrixElement(index));
+			this->Set(index, temp.GetMatrixElement(index));
 		}
 
 		// set the this->mCols and the this->mRows the same as the temp matrix

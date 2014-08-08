@@ -31,7 +31,7 @@ int testGetandSet()
 		{
 			for (int j = 0; j < a.GetMatrixCols(); j++)
 			{
-				a.SetRCMatrixElement(i+1, j+1, k);
+				a.SetMatrixRCElement(i+1, j+1, k);
 				k++;
 			}
 		}
@@ -46,7 +46,7 @@ int testGetandSet()
 		{
 			for (int j = 0; j < b.GetMatrixCols(); j++)
 			{
-				b.SetRCMatrixElement(i+1, j+1, (i + j) % 11 + 10);
+				b.SetMatrixRCElement(i+1, j+1, (i + j) % 11 + 10);
 			}
 		}
 
