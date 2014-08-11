@@ -12,7 +12,7 @@ int testMatrixMultiply()
 	{
 		/* Test matrix multiply of very large matricies;*/
 		cout << "Set up for x" << endl;
-		Matrix a(10, 10), b(10, 10), c(1000, 1000);
+		Matrix a(5, 5), b(5, 5), c(1000, 1000);
 
 
 		// set up the matricies
