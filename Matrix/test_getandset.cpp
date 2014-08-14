@@ -10,20 +10,25 @@ using std::endl;
 int testGetandSet()
 {
 	{
+		cout << " Matrix Get and Set function test..." << endl;
 		Matrix a;
-		cout << " Matrix a is " << endl;
-		a.Mprint();
-		cout << " Matrix a rows = " << a.GetMatrixRows() << " Matrix a columns = " << a.GetMatrixCols() << endl;
+        Matrix d(2, 2);
 
-		Matrix b(10, 10), c(5, 5);
-		cout << " Matrix b is " << endl;
-		b.Mprint();
-		cout << " Matrix b rows = " << b.GetMatrixRows() << " Matrix b columns = " << b.GetMatrixCols() << endl;
+        if( a != d)
+        {
+            cout << " Matrix 1st Get & Set Function, first test failed..." << endl;
+            return 1;
+        }
 
-		cout << " Matrix c is " << endl;
-		c.Mprint();
-		cout << " Matrix c rows = " << c.GetMatrixRows() << " Matrix c columns = " << c.GetMatrixCols() << endl;
-//		system("pause");
+		Matrix b(10, 10), c(10, 10);
+
+		c = b;
+		if( a != d)
+        {
+            cout << " Matrix 1st Get & Set Function, second test failed..." << endl;
+            return 1;
+        }
+
 
 		// set into 0 to 3 in the matrix row 1 0, 1
 		int k = 1;
@@ -36,9 +41,12 @@ int testGetandSet()
 			}
 		}
 
-		cout << " Matrix a is " << endl;
-		a.Mprint();
-		cout << " Matrix a rows = " << a.GetMatrixRows() << " Matrix a columns = " << a.GetMatrixCols() << endl;
+        d = a;
+         if( a != d)
+        {
+            cout << " Matrix 2nd Get & Set Function, first test failed..." << endl;
+            return 1;
+        }
 
 
 		// set the b matrix elements
@@ -49,17 +57,30 @@ int testGetandSet()
 				b.SetMatrixRCElement(i+1, j+1, (i + j) % 11 + 10);
 			}
 		}
+        d = b;
+        if( b != d)
+        {
+            cout << " Matrix 2nd Get & Set Function, second test failed..." << endl;
+            return 1;
+        }
 
-		cout << " Matrix b is " << endl;
-		b.Mprint();
-		cout << " Matrix b rows = " << b.GetMatrixRows() << " Matrix b columns = " << b.GetMatrixCols() << endl;
+		for (int i = 0; i < b.GetMatrixRows(); i++)
+		{
+			for (int j = 0; j < b.GetMatrixCols(); j++)
+			{
+				c.SetMatrixRCElement(i+1, j+1, b.GetMatrixRCElement(i+1, j+1));
+			}
+		}
 
-//		system("pause");
+		if( c != b)
+        {
+            cout << " Matrix 3rd Get & Set Function, first test failed..." << endl;
+            return 1;
+        }
 
-
-
+        cout << " Matrix Get and Set function passed!" << endl << endl;
 
 	}
-//	system("pause");
+
 	return 0;
 }

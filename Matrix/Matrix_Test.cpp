@@ -22,84 +22,74 @@ int testSubtraction();
 int testTranspose();
 int testMatrixMultiply();
 int testMatrixInverse();
+int testScalarMultiply();
+int testMatrixDeterminant();
 
-
+bool Matrix::mdbug = 0;
 
 
 int main()
 {
 	{
-		// test the constructors and destructor
-//		testConstructorDestructor();
-//		system("pause");*/
+	    /// test the constructors and destructor
+		testConstructorDestructor();
 
-		// test the getters and setters
+		/// test the getters and setters
 //		testGetnSetters();
-//		system("pause");*/
 
-		// test assignment operator
-//		testAssignment();
-//		system("pause");*/
+		/// test assignment operator
+		testAssignment();
 
-		// test the get and set to update matrix elements
-//		testGetandSet();
-//		system("pause");*/
+		/// test the get and set to update matrix elements
+		testGetandSet();
 
-		// test assignment add operator
+		// test matrix equality
+		/// relational operator == equality operator works correctl
+		testEquality();
+
+		/// test matrix, inequality
+		testInequality();
+
 		/// assign add funcion a += b works correctly
-//		testAssignAdd();
-//		system("pause");*/
+		testAssignAdd();
 
-        /// add funcion a = a + b works correctly
-//		testAdd();
-//		system("pause");*/
+	    // test assignment add operator
+	    /// add funcion a = a + b works correctly
+		testAdd();
 
-		// test matrix assign and multiply a *= b;
-		/// assign multiply funcion a *= b works correctly
-//		testAssignMultiply();
-//		system("pause");*/
-
-		 //test matrix multiplication c = a x b;
-		/// multiply funcion a = a * b works correctly
-//		testMMltiplication();
-//		system("pause");*/
-
-		//test assignment subtract c -= b
-        /// assign subtract funcion a -= b works correctly
-//		testAssignSubtract();
-//		system("pause");*/
+		/// assign subtract funcion a -= b works correctly
+		testAssignSubtract();
 
 		// test subtraction c = c - b
         /// subtraction funcion a = a - b works correctly
-//		testSubtraction();
-//		system("pause");
+		testSubtraction();
+
+		// test matrix assign and multiply a *= b;
+		/// assign multiply funcion a *= b works correctly
+		testAssignMultiply();
+
+		 //test matrix multiplication c = a x b;
+		/// multiply funcion a = a * b works correctly
+		testMMltiplication();
+
+		/// scalar multiplication a = 2 * b or a = b * 2
+		testScalarMultiply();
 
 		// test matrix transpose
 		/// transpose funcion a.transpose() works correctly
-//		testTranspose();
-//		system("pause");
+		testTranspose();
 
-		// test matrix equality
-		/// relational operator == equality operator works correctly
-//		testEquality();
-//		system("pause");*/
-
-		// test matrix, inequality
-//		testInequality();
-//		system("pause");*/
-
-		//test random matrix
 		/// large matrix multiply funcion a = a * a works correctly
 //		testMatrixMultiply();
-//		system("pause");
 
-        // test matrix inverse function
-        ///
+        ///test matrix inverse function
         testMatrixInverse();
 
+        /// test matrix determinant function
+        testMatrixDeterminant();
 
 	}
 
-	//system("pause");
+
 	return 0;
 }

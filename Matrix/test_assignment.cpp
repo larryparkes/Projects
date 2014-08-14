@@ -9,36 +9,29 @@ using std::endl;
 
 int testAssignment()
 {
-	Matrix a(5, 5), b(5, 5), c(4, 5);
+	cout << " Matrix Assignment test a = b...." << endl;
+	Matrix a(5, 5), b(3, 3), c (5, 5);
 
 	//set up the a matrix,
-
-	int mSize = a.GetMatrixSize();
-	for (int i = 0; i < mSize; i++)
+	for (int i = 0; i < a.GetMatrixSize(); i++)
 	{
 		a.SetMatrixElement(i, i + 1);
 	}
 
+    b = c = a;
 
-	cout << "a is" << endl;
-	a.Mprint();
-	cout << " b is" << endl;
-	b.Mprint();
-	cout << " Assignment b = a " << endl;
-	b = a;
-	cout << "b is now" << endl;
-	b.Mprint();
+    if( b != a)
+    {
+        cout << " Matrix Assignment first test failed"  << endl;
+        return 1;
+    }
 
+    if( c != a)
+    {
+        cout << " Matrix Assignment second test failed"  << endl;
+        return 1;
+    }
 
-	cout << "c is" << endl;
-	c.Mprint();
-	cout << " b is" << endl;
-	b.Mprint();
-	cout << " Assignment b = c " << endl;
-	b = c;
-	cout << " b is now" << endl;
-	b.Mprint();
-
-
+    cout << " Matrix Assigment Passed!" << endl << endl;
 	return 0;
 }

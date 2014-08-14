@@ -9,125 +9,118 @@ using std::endl;
 
 int testSubtraction()
 {
-	// attempt to add non square matricies m x n + m x y, m x y + n x y & m x y + n x z
+	// attempt to subtract non square matricies m x n + m x y, m x y + n x y & m x y + n x z
 	// a is a m x n, b is a m x y, c n x y, d is a n x z
 
-	Matrix a(10, 5), b(4, 5), c(4, 10), d(2, 3), e;
+	cout << " Matrix Subtraction a = c - d Test..." << endl;
+	Matrix a(4, 2), b(4, 5), c(2, 5), d(2, 3), e;
 
 	//set up the a matrix,
-
-	int mSize = a.GetMatrixSize();
-	for (int i = 0; i < mSize; i++)
+	for (int i = 0; i < a.GetMatrixSize(); i++)
 	{
-		a.SetMatrixElement(i, i + 1);
+		a.SetMatrixElement(i, i + 11);
 	}
 
 	//set up the b matrix,
-
-	mSize = b.GetMatrixSize();
-	for (int i = 0; i < mSize; i++)
+	for (int i = 0; i < b.GetMatrixSize(); i++)
 	{
-		b.SetMatrixElement(i, i + 1);
+		b.SetMatrixElement(i, i + 11);
 	}
 
 	//set up the c matrix,
-
-	mSize = c.GetMatrixSize();
-	for (int i = 0; i < mSize; i++)
+	for (int i = 0; i < c.GetMatrixSize(); i++)
 	{
-		c.SetMatrixElement(i, i + 1);
+		c.SetMatrixElement(i, i + 11);
 	}
 
 	//set up the d matrix,
-
-	mSize = d.GetMatrixSize();
-	for (int i = 0; i < mSize; i++)
+	for (int i = 0; i < d.GetMatrixSize(); i++)
 	{
-		d.SetMatrixElement(i, i + 1);
+		d.SetMatrixElement(i, i + 11);
 	}
 
 	//set up the e matrix,
-
-	mSize = e.GetMatrixSize();
-	for (int i = 0; i < mSize; i++)
+	for (int i = 0; i < e.GetMatrixSize(); i++)
 	{
-		e.SetMatrixElement(i, i + 1);
+		e.SetMatrixElement(i, i + 11);
 	}
-
-	cout << " the a matrix is " << endl;
-	a.Mprint();
-	cout << "e is " << endl;
-	e.Mprint();
-//	system("pause");
-
+//	cout << "e is " << endl;
+//	e.Mprint();
 
 
 	//illegal inconsistent matrix dimensions
-	//
-	e = e - a;
-	cout << "e = e - a, and e is " << endl;
-	e.Mprint();
+//	a.Mprint();
+//	b.Mprint();
+	a = a - b;
+//	a.Mprint();
+//	b.Mprint();
+	if( a != a)
+    {
+        cout << " failed 1st group test at the first subtract function test..." << endl;
+        return 1;
+    }
+    a = a - c;
+    if( a != a)
+    {
+        cout << " failed 1st group test at the second subtract function test..." << endl;
+        return 1;
+    }
+	a = a -  b;
+	if( a != a)
+    {
+        cout << " failed 1st group test at the third subtract function test..." << endl;
+        return 1;
+    }
+	a = a - d;
+	if( a != a)
+    {
+        cout << " failed 1st group test at the forth subtract function test..." << endl;
+        return 1;
+    }
 
-	// next test
-	cout << " the b matrix is " << endl;
-	b.Mprint();
-	e = e - b;
-	cout << "e = e - b, and e is " << endl;
-	e.Mprint();
+	// assignment operator set "e" to "a" and subtract
 
-	// Next test
-	cout << " the c matrix is " << endl;
-	c.Mprint();
-	e = e - c;
-	cout << "e = e - c, and e is " << endl;
-	e.Mprint();
-
-
-	// next test
-	cout << " the d matrix is " << endl;
-	d.Mprint();
-	e = e - d;
-	cout << "e = e - d, and e is " << endl;
-	e.Mprint();
-
-//	system("pause");
-	// assignment operator set "e" to "a" and add
-	cout << " set e = a" << endl;
 	e = a;
-	cout << "e is = a " << endl;
-	e.Mprint();
 
-    cout << " Subtractinbg e = e - a \n" << endl;
-	e = e - a;
-	cout << "e = e - a, and now e is " << endl;
-	e.Mprint();
+	a = a - e;
+//	a.Mprint();
+//	e.Mprint();
 
-	// assignment operator set "e" to "b" and add
-	e = b;
-	cout << "set e = b " << endl;
-	e.Mprint();
+	if ( a != 0*e)
+    {
+        cout << " failed 2nd group test at the first subtract function test..." << endl;
+        return 1;
 
-	e = e - b;
-	cout << "e = e - b and now e is " << endl;
-	e.Mprint();
+    }
+    // assignment operator set "e" to "b" and subtract
+	a = b;
+	a = a - b;
+//	a.Mprint();
+//	b.Mprint();
+	if ( a != 0*b)
+    {
+        cout << " failed 2nd group test at the second subtract function test..." << endl;
+        return 1;
 
-	// assignment operator set "e" to "c" and add
-	e = c;
-	cout << "set e = c " << endl;
-	e.Mprint();
+    }
+	// assignment operator set "e" to "c" and subtract
+	a = c;
+	a = a - c;
+	if ( a == c || a != 0*c)
+    {
+        cout << " failed 2nd group test at the third subtract function test..." << endl;
+        return 1;
 
-	e = e - c;
-	cout << " e = e - c and now e is " << endl;
-	e.Mprint();
+    }
+	// assignment operator set "e" to "d" and subtract
+	a = d;
+	a = a - d;
+	if ( a == d || a != 0*d)
+    {
+        cout << " failed 2nd group test at the fourth subtract function test..." << endl;
+        return 1;
 
-	// assignment operator set "e" to "d" and add
-	e = d;
-	cout << "e = d, " << endl;
-	e.Mprint();
-
-	e = e - d;
-	cout << "e = e - d, and now e is " << endl;
-	e.Mprint();
-
+    }
+    cout << " Matrix Subtract Passed!" << endl << endl;
 	return 0;
 }

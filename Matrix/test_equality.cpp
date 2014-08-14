@@ -9,6 +9,7 @@ using std::endl;
 
 int testEquality()
 {
+	cout << " Matrix Equality a == b Test..." << endl;
 	Matrix a(5, 5), b(5, 5), c(4, 5);
 
 	//set up the a matrix,
@@ -22,52 +23,31 @@ int testEquality()
 	b = a;
 
 	// check if b = a
-	cout << "Check if b = a" << endl;
-	cout << " a is" << endl;
-	a.Mprint();
-	cout << endl << " b is " << endl;
-	b.Mprint();
-
-	if (b == a)
+	if (b != a)
 	{
-		cout << "Success b is equal to a" << endl<< endl;
-	}
-	else
-	{
-		cout << " nope they are different" << endl << endl;
+		cout << "Failed the first equality test" << endl;
+		return 1;
 	}
 
 	// check if b = a
 	b.SetMatrixElement(24, 1);
-	cout << " a is" << endl;
-	a.Mprint();
-	cout << endl << " b is " << endl;
-	b.Mprint();
 
-	cout << "Check if b = a" << endl;
+
+//	cout << "Check if b = a" << endl;
 	if (b == a)
 	{
-		cout << "Success b is equal to a" << endl;
-	}
-	else
-	{
-		cout << " nope they are different" << endl;
+		cout << "Failed the second equality test" << endl;
+		return 1;
 	}
 
-	cout << endl << "Check if c = a" << endl;
-	cout << " a is" << endl;
-	a.Mprint();
-	cout << endl << " c is " << endl;
-	c.Mprint();
 
-
+//  check if c = a
 	if (c == a)
 	{
-		cout << "Success c is equal to a" << endl << endl;
+		cout << "Failed the third equality test" << endl;
 	}
-	else
-	{
-		cout << " nope they are different" << endl << endl;
-	}
+
+	cout << " Matrix Equality Passed!" << endl << endl;
+
 	return 0;
 }

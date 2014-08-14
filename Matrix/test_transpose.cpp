@@ -10,68 +10,70 @@ using std::endl;
 int testTranspose()
 {
 	{
-		/*Matrix x;*/
-		cout << "Set up for x" << endl;
+		cout << " Matrix Transpose a^t Test" << endl;
+//		cout << "Set up for x" << endl;
 		Matrix a(5, 5), b(3, 5), c(4, 1);
-
-		/*x = a;
-		cout << " x is " << endl;
-		x.Mprint();*/
-
+        Matrix x, y, z;
 		// set up the matricies
 
-		cout << "set up of the a matrix -  non zero values" << endl;
-		int mSize = a.GetMatrixSize();
-		int val = 1;
-		for (int i = 0; i < mSize; i++, val++)
+//		cout << "set up of the a matrix -  non zero values" << endl;
+
+		int val = 11;
+		for (int i = 0; i < a.GetMatrixSize(); i++, val++)
 		{
 			a.SetMatrixElement(i, val);
 
 		}
-		cout << " a matrix set" << endl;
-		cout << "a is " << endl;
-		a.Mprint();
-		a.MatrixTranspose();
-		cout << " a transpose is " << endl;
 
+//		cout << "set up of the b matrix -  non zero values" << endl;
 
-		a.Mprint();
-//		system("pause");
-
-
-		cout << "set up of the b matrix -  non zero values" << endl;
-		mSize = b.GetMatrixSize();
-		val = 1;
-		for (int i = 1; i <= mSize; i++, val++)
+		val = 11;
+		for (int i = 1; i <= b.GetMatrixSize(); i++, val++)
 		{
 			b.SetMatrixElement(i - 1, val + 2);
 		}
 
-		cout << "b is " << endl;
-		b.Mprint();
 
-		b.MatrixTranspose();
-		cout << "b now is " << endl;
-		b.Mprint();
+//		cout << "set up of the c matrix -  non zero values" << endl;
 
-//		system("pause");
-
-		cout << "set up of the c matrix -  non zero values" << endl;
-		mSize = c.GetMatrixSize();
-		val = 1;
-		for (int i = 1; i <= mSize; i++, val++)
+		val = 11;
+		for (int i = 1; i <= c.GetMatrixSize(); i++, val++)
 		{
 
 			c.SetMatrixElement(i - 1, val + 2);
 		}
 
-		cout << " c is " << endl;
-		c.Mprint();
-		c.MatrixTranspose();
-		cout << "c now is " << endl;
-		c.Mprint();
+        z = a;
+        x = z.MatrixTranspose();
+		y = x.MatrixTranspose();
+
+		if(a != y)
+        {
+            cout << " failed the first transpose function test..." << endl;
+            return 1;
+        }
+
+        z = b;
+		x = z.MatrixTranspose();
+		y = x.MatrixTranspose();
+
+		if(b != y)
+        {
+            cout << " failed the second transpose function test..." << endl;
+            return 1;
+        }
+
+        z = c;
+		x = z.MatrixTranspose();
+		y = x.MatrixTranspose();
+		if(c != y)
+        {
+            cout << " failed the third transpose function test..." << endl;
+            return 1;
+        }
+		 cout << " Matrix Transpose Passed!" << endl << endl;
 
 	}
-//	system("pause");
+
 	return 0;
 }

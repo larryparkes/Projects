@@ -10,20 +10,25 @@ using std::endl;
 int testConstructorDestructor()
 {
 	{
+	    cout << " Matrix Constructors test..."<< endl;
 		Matrix a;
-		cout << " Matrix a is " << endl;
-		a.Mprint();
+        if(a.GetMatrixCols() != a.GetMatrixRows())
+        {
+           cout << " Matrix Constructor  first test failed" << endl;
+           return 1;
+        }
 
-		Matrix b(10, 10), c(5,5);
-		cout << " Matrix b is " << endl;
-		b.Mprint();
+		Matrix b(10, 5);
+		if(b.GetMatrixCols()!= 5 || b.GetMatrixRows() != 10)
+        {
+            cout << " Matrix Constructor  second test failed" << endl;
+            return 1;
+        }
 
-		cout << " Matrix c is " << endl;
-		c.Mprint();
+        cout << " Matrix Constructor Passed!" << endl << endl;
 
-//		system("pause");
 
 	}
-//	system("pause");
+
 	return 0;
 }

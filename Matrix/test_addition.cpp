@@ -11,105 +11,108 @@ int testAdd()
 {
 	// attempt to add non square matricies m x n + m x y, m x y + n x y & m x y + n x z
 	// a is a m x n, b is a m x y, c n x y, d is a n x z
-
+    cout << " Matrix Addition a = c + d Test..." << endl;
 	Matrix a(4, 2), b(4, 5), c(2, 5), d(2, 3), e;
 
 	//set up the a matrix,
-
-	int mSize = a.GetMatrixSize();
-	for (int i = 0; i < mSize; i++)
+	for (int i = 0; i < a.GetMatrixSize(); i++)
 	{
-		a.SetMatrixElement(i, i + 1);
+		a.SetMatrixElement(i, i + 11);
 	}
 
 	//set up the b matrix,
-
-	mSize = b.GetMatrixSize();
-	for (int i = 0; i < mSize; i++)
+	for (int i = 0; i < b.GetMatrixSize(); i++)
 	{
-		b.SetMatrixElement(i, i + 1);
+		b.SetMatrixElement(i, i + 11);
 	}
 
 	//set up the c matrix,
-
-	mSize = c.GetMatrixSize();
-	for (int i = 0; i < mSize; i++)
+	for (int i = 0; i < c.GetMatrixSize(); i++)
 	{
-		c.SetMatrixElement(i, i + 1);
+		c.SetMatrixElement(i, i + 11);
 	}
 
 	//set up the d matrix,
-
-	mSize = d.GetMatrixSize();
-	for (int i = 0; i < mSize; i++)
+	for (int i = 0; i < d.GetMatrixSize(); i++)
 	{
-		d.SetMatrixElement(i, i + 1);
+		d.SetMatrixElement(i, i + 11);
 	}
 
 	//set up the e matrix,
-
-	mSize = e.GetMatrixSize();
-	for (int i = 0; i < mSize; i++)
+	for (int i = 0; i < e.GetMatrixSize(); i++)
 	{
-		e.SetMatrixElement(i, i + 1);
+		e.SetMatrixElement(i, i + 11);
 	}
-	cout << "e is " << endl;
-	e.Mprint();
-//	system("pause");
+//	cout << "e is " << endl;
+//	e.Mprint();
+
 
 	//illegal inconsistent matrix dimensions
 	e = a + b;
-	cout << "e is a + b" << endl;
-	e.Mprint();
-
-	e = b + c;
-	cout << "e is b + c" << endl;
-	e.Mprint();
-
+	if( e != b)
+    {
+        cout << " failed 1st group test at the first add function test..." << endl;
+        return 1;
+    }
+    e = b + c;
+    if( e != c)
+    {
+        cout << " failed 1st group test at the second add function test..." << endl;
+        return 1;
+    }
 	e = c + b;
-	cout << "e is c + b" << endl;
-	e.Mprint();
-
-	e += d;
-	cout << "e is " << endl;
-	e.Mprint();
+	if( e != b)
+    {
+        cout << " failed 1st group test at the third add function test..." << endl;
+        return 1;
+    }
+	e = e + d;
+	if( e != d)
+    {
+        cout << " failed 1st group test at the forth add function test..." << endl;
+        return 1;
+    }
 
 	// assignment operator set "e" to "a" and add
 
 	e = a;
-	cout << "e is = a " << endl;
-	e.Mprint();
+
 
 	e = a + a;
-	cout << "now e is a + a " << endl;
-	e.Mprint();
+	if ( e == a || e != 2*a)
+    {
+        cout << " failed 2nd group test at the first add function test..." << endl;
+        return 1;
 
-	// assignment operator set "e" to "b" and add
+    }
+    // assignment operator set "e" to "b" and add
 	e = b;
-	cout << "e is = b " << endl;
-	e.Mprint();
-
 	e = b + b;
-	cout << "now e is b + b" << endl;
-	e.Mprint();
+	if ( e == b || e != 2*b)
+    {
+        cout << " failed 2nd group test at the second add function test..." << endl;
+        return 1;
 
+    }
 	// assignment operator set "e" to "c" and add
 	e = c;
-	cout << "e is = c " << endl;
-	e.Mprint();
-
 	e = c + c;
-	cout << "now e is c + c " << endl;
-	e.Mprint();
+	if ( e == c || e != 2*c)
+    {
+        cout << " failed 2nd group test at the third add function test..." << endl;
+        return 1;
 
+    }
 	// assignment operator set "e" to "d" and add
 	e = d;
-	cout << "e is = d " << endl;
-	e.Mprint();
-
 	e = d + d;
-	cout << "now e is d + d" << endl;
-	e.Mprint();
+	if ( e == d || e != 2*d)
+    {
+        cout << " failed 2nd group test at the fourth add function test..." << endl;
+        return 1;
+
+    }
+    cout << " Matrix Addition Passed!" << endl << endl;
 
 	return 0;
 }

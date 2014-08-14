@@ -12,7 +12,13 @@ int testGetnSetters()
 	{
 		Matrix a;
 		cout << " Matrix a is " << endl;
-		a.Mprint();
+
+		Matrix d(2, 2);
+
+        if ( a != d)
+        {
+            cout << " " << endl;
+        }
 		cout << " Matrix a rows = " << a.GetMatrixRows() << " Matrix a columns = " << a.GetMatrixCols() << endl;
 
 		Matrix b(10, 10), c(5, 5);

@@ -7,12 +7,13 @@ using std::endl;
 
 #include "Matrix.h"
 
-int testMatrixInverse()
+int testMatrixDeterminant()
 {
 	{
-        cout << " Matrix Inversion a^(-1) Test...." << endl;
+        cout << " Matrix Determinant det(a) Test...." << endl;
 //		cout << "Set up for x" << endl;
 		Matrix a(4, 4), b, c, I(4, 4);
+		double z = 0;
 
 		a.SetMatrixRCElement(1, 1, 0);
 		a.SetMatrixRCElement(1, 2, 1);
@@ -34,6 +35,7 @@ int testMatrixInverse()
 
         /// identity Matrix
  //       bool test = false;
+
         for( int i = 0; i < a.GetMatrixRows(); i++)
         {
             for( int j = 0; j < a.GetMatrixCols(); j++)
@@ -45,45 +47,25 @@ int testMatrixInverse()
             }
         }
 
-//        cout << " Identuity Matrix is" << endl;
+//        cout<< " I Matrix is" << endl;
 //        I.Mprint();
-//
-//		cout << " a matrix set" << endl;
-//		cout << "a is " << endl;
-//		a.Mprint();
 
-		b = a.MatrixInvert();
-//		cout << endl <<" the inverse of a is" << endl;
-//		b.Mprint();
-//
-//        cout << "Check I = a * a^-1"  <<endl;
-        c = a * b;
-//        c.Mprint();
 
-        if( c != I)
+		z = a.Determinant();
+		if ( (z + 3)*(z + 3) >= epsilon*epsilon)
         {
-            cout << " First Matrix Inversion test failed!  exit" << endl;
+            cout << " failed the first determinant function test"  << endl;
             return 1;
         }
-        else
+
+
+		z = I.Determinant();
+		if( (z - 1) * (z - 1) >= epsilon*epsilon)
         {
-//            cout << "next" << endl;
-//            cout << "a is " << endl;
-//            a.Mprint();
-//            cout << " a inverse is " << endl;
-//            b.Mprint();
-            a *= b;
-
-//            cout << " a * a^-1 is" << endl;
-//            a.Mprint();
-
-            if(a != I)
-            {
-                cout << " Second Matrix Inversion Test failed! exit" << endl;
-                return 1;
-            }
-             cout << " Matrix Inversion Passed!" << endl << endl;
+            cout << " failed the second determinant function test"  << endl;
+            return 1;
         }
+		cout << " Matrix Determinant Passed!" << endl << endl;
 
     }
 
