@@ -28,7 +28,7 @@ int testMatrixDeterminant();
 bool Matrix::mdbug = 0;
 
 
-int main()
+int matrixTest()
 {
 	{
 	    /// test the constructors and destructor
