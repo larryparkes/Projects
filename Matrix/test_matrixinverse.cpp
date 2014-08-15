@@ -45,18 +45,7 @@ int testMatrixInverse()
             }
         }
 
-//        cout << " Identuity Matrix is" << endl;
-//        I.Mprint();
-//
-//		cout << " a matrix set" << endl;
-//		cout << "a is " << endl;
-//		a.Mprint();
-
 		b = a.MatrixInvert();
-//		cout << endl <<" the inverse of a is" << endl;
-//		b.Mprint();
-//
-//        cout << "Check I = a * a^-1"  <<endl;
         c = a * b;
 //        c.Mprint();
 
@@ -65,25 +54,44 @@ int testMatrixInverse()
             cout << " First Matrix Inversion test failed!  exit" << endl;
             return 1;
         }
-        else
-        {
-//            cout << "next" << endl;
-//            cout << "a is " << endl;
-//            a.Mprint();
-//            cout << " a inverse is " << endl;
-//            b.Mprint();
-            a *= b;
+        b.Mprint();
+        a *= b;
 
 //            cout << " a * a^-1 is" << endl;
 //            a.Mprint();
 
-            if(a != I)
-            {
-                cout << " Second Matrix Inversion Test failed! exit" << endl;
-                return 1;
-            }
-             cout << " Matrix Inversion Passed!" << endl << endl;
+        if(a != I)
+        {
+            cout << " Second Matrix Inversion Test failed! exit" << endl;
+            return 1;
         }
+
+//        cout << endl << " 3rd & 4th tests...." << endl << endl;
+
+        a = I;
+        b = a.MatrixInvert();
+        c = a * b;
+        c.Mprint();
+
+        if( c != I)
+        {
+            cout << " Third Matrix Inversion test failed!  exit" << endl;
+            return 1;
+        }
+//           b.Mprint();
+        a *= b;
+
+//            cout << " a * a^-1 is" << endl;
+//            a.Mprint();
+
+        if(a != I)
+        {
+            cout << " Fourth Matrix Inversion Test failed! exit" << endl;
+            return 1;
+        }
+
+
+        cout << " Matrix Inversion Passed!" << endl << endl;
 
     }
 

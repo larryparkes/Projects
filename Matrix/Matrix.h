@@ -52,6 +52,18 @@ private:
         return a;
     }
 
+    inline Matrix Round()
+    {
+        for( int i = 0; i < this->GetMatrixSize(); i++)
+        {
+            if(Abs(this->GetMatrixElement(i)) <= epsilon)
+            {
+                this->Set(i, 0);
+            }
+        }
+        return *this;
+    }
+
 
 public:
     static bool mdbug;
@@ -215,21 +227,12 @@ public:
 	/// print the matrix in row column format
 	void Mprint(void)
 	{
-	    double tempVar = 0;
+//	    double tempVar = 0;
 		for (int i = 0; i < this->GetMatrixRows(); i++)
 		{
 			for (int j = 0; j < this->GetMatrixCols(); j++)
 			{
-			    tempVar = GetMatrixRCElement(i+1, j+1);
-			    if(Abs(tempVar) <= epsilon)
-                {
-                    tempVar = 0;
-                    cout << tempVar << "    ";
-                }
-                else
-                {
-                    cout << this->GetMatrixRCElement(i+1, j+1) << "    ";
-                }
+			    cout << this->GetMatrixRCElement(i+1, j+1) << "    ";
 			}
 			cout << endl;
 		}
@@ -344,6 +347,9 @@ public:
 					+ rhside.GetMatrixElement(index)));
 			}
 //			cout << "adding done!" << endl;
+
+            /// if we have very small elements < epsilon set them to zero
+            this->Round();
 			return *this;
 		}
 		else
@@ -377,6 +383,9 @@ public:
 			{
 				this->Set(index, (this->GetMatrixElement(index) - rhside.GetMatrixElement(index)));
 			}
+
+			/// if we have very small elements < epsilon set them to zero
+			this->Round();
 			return *this;
 		}
 		else
@@ -456,39 +465,26 @@ public:
 			cout << "Multiplication not possible inconsistent matrix dimension" << endl;
 			return *this;
 		}
+
 		/// determine the number of elements in the matrix product
-//		int mSize = this->GetMatrixSize();
-
 		/// get the row index - this is the number of rows in the this matrix
-//		int rowIndex = this->GetMatrixRows();
-
 		/// get the column index - this is the number of columns in the rhside matrix
-//		int colIndex = rhside.GetMatrixCols();
-
 		/// set up a temporary matrix to hold the contents of the matrix product
+
 		Matrix result(this->GetMatrixRows(), rhside.GetMatrixCols());
 
 		/// the final Aij element is given by sum( Bik * Ckj) where k correspond to the
 		/// this cols or the rhside rows. k is the number of products to be summed o get the Aij term.
-//		int sumIndex = this->GetMatrixCols();
 
-//		for (int i = 0; i < rowIndex; i++)
 		for (int i = 0; i < this->GetMatrixRows(); i++)
 		{
-//			for (int j = 0; j < colIndex; j++)
 			for (int j = 0; j < rhside.GetMatrixCols(); j++)
 			{
 				double sum = 0;
-//				for (int k = 0; k < sumIndex; k++)
 				for (int k = 0; k < this->GetMatrixCols(); k++)
 				{
   				result.Set(i, j, sum += this->GetMatrixRCElement(i + 1, k + 1)
 						* rhside.GetMatrixRCElement(k + 1, j + 1));
-					//result.SetMatrixRCElement(i + 1, j + 1, result
-					//	+= this->GetMatrixRCElement(i + 1, k + 1)
-					//	* rhside.GetMatrixRCElement(k + 1, j + 1));
-//					result.ePtr[i*colIndex + j] += this->ePtr[i*colIndex + k] * rhside.ePtr[k*rowIndex + j];
-//					result.ePtr[i*rhside.GetMatrixCols() + j] += this->ePtr[i*rhside.GetMatrixCols() + k] * rhside.ePtr[k*this->GetMatrixRows() + j];
 				}
 			}
 		}
@@ -515,6 +511,9 @@ public:
         {
             cout << "multiplication called... " << endl;
         }
+
+        /// if we have very small elements < epsilon set them to zero
+        this->Round();
 		return *this;
 	}
 
@@ -537,6 +536,9 @@ public:
 				result.SetMatrixElement(index, (lhside.GetMatrixElement(index) + rhside.GetMatrixElement(index)));
 			}
 //			cout << "adding done! \n" << endl;
+
+            /// if we have very small elements < epsilon set them to zero
+            result.Round();
 			return result;
 		}
 		else
@@ -560,28 +562,27 @@ public:
 	/// subrtaction of matrices c = a - b;
 	friend const Matrix operator-(const Matrix &lhside, const Matrix &rhside)
 	{
-		/// check the lhs and rhs dimensions, must be the same
+
 		if(mdbug)
         {
             cout << " Called subtraction operator c = a - b ...." << endl;
         }
 
-
+        /// check the lhs and rhs dimensions, must be the same
 		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
 			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
 		{
+            /// create a matrix to hold the results of the operation
 			Matrix results(rhside.GetMatrixRows(), rhside.GetMatrixCols());
-//			int mSize = rhside.GetMatrixSize();
+
 			for (int index = 0; index < rhside.GetMatrixSize(); index++)
 			{
-//				results.Set(index,
-//					(lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index)));
-//                results.Set(index, 10);
-//                results.SetMatrixElement(index, (lhside.GetMatrixElement(index)-rhside.GetMatrixElement(index)));
                 results.Set(index, (lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index)));
-
 			}
 //			cout << "subtraction done! \n" << endl;
+
+            /// if we have very small elements < epsilon set them to zero
+			results.Round();
 			return results;
 		}
 		else
@@ -614,25 +615,20 @@ public:
 			cout << " Function multiplication of matrices c = a x b  " << endl;
 			cout << "Multiplication not possible inconsistent matrix dimension" << endl;
 			 /* to do - what should we return????? */
+
 			return lhside;
 		}
 
-		///determine the number of elements in the matrix
-//		int mSize = lhside.GetMatrixRows() * rhside.GetMatrixCols();
-
+		/// determine the number of elements in the matrix
 		/// get the row index - this is the number of rows in the this matrix
-//		int rowIndex = lhside.GetMatrixRows();
-
 		/// get the column index - this is the number of columns in the rhside matrix
-//		int colIndex = rhside.GetMatrixCols();
-
-
 		/// set up the results matrix to hold the contents of the matrix product
+
 		Matrix results(lhside.GetMatrixRows(), rhside.GetMatrixCols());
+
 
         /// the final Aij element is given by sum( Bik * Ckj) where k correspond to the
 		/// lhside cols or the rhside rows. k is the number of products to be summed o get the Aij term.
-//		int sumIndex = lhside.GetMatrixCols();
 
 		for (int i = 0; i < lhside.GetMatrixRows(); i++)
 		{
@@ -649,6 +645,8 @@ public:
 		}
 
 //		cout << "multiplication 'a * b' called... " << endl;
+        /// if we have very small elements < epsilon set them to zero
+		results.Round();
 		return results;
 	}
 
@@ -664,6 +662,9 @@ public:
         {
             Copy.Set(index, rhside * Copy.GetMatrixElement(index));
         }
+
+        /// if we have very small elements < epsilon set them to zero
+        Copy.Round();
         return Copy;
     }
     /// scalar multiplication
@@ -680,20 +681,20 @@ public:
             cout << " called equality of Matrices c == a   " << endl;
         }
 
-		/// index is used to step through the elements in the matrix array,
-//		/// mSize is the number of elements in the matrix array
+		/// initialisations
 		int index = 0;
-//		double result = 0;
 		bool test = false;
-//		int mSize = rhside.GetMatrixSize();
 
-		/// check if the row and column are equal if they are check
+		/// check if the row and column dimensions are equal if they are check
+		/// then check each element in the matrix to see if they are also equal
 		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
 			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
 		{
 			while (index < rhside.GetMatrixSize())
 			{
-//			    result = lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index);
+			    /// index is used to step through the elements in the matrix array,
+			    /// since elements are double need to check that the difference is very small
+                /// if that difference is less than epsilon then they are equal.
 				if (Matrix::Abs( lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index) ) <= epsilon )
 				{
 					test = true;
@@ -701,13 +702,11 @@ public:
 				}
 				else
 				{
-					test = false;
-					index = rhside.GetMatrixSize();
+				    /// if any element comparison is not true return false
+					return false;
 				}
 			}
-			return test;
 		}
-
 		return test;
 	}
 
@@ -758,7 +757,7 @@ public:
     /// matrix invert a^-1
 const Matrix MatrixInvert()
 {
-    /// set up identify matrix I and a Copy matrix
+    /// set up identity matrix I and a Copy matrix
     Matrix I(this->GetMatrixRows(), this->GetMatrixCols());
     Matrix Copy = *this;
 
@@ -770,36 +769,37 @@ const Matrix MatrixInvert()
     /// check matrix dimensions -  must be square
     if (Copy.GetMatrixRows() == Copy.GetMatrixCols())
     {
-    /// set up the identity matrix
+        /// set up the identity matrix
         for( int m = 0; m < Copy.GetMatrixRows(); m++)
         {
             I.Set(m, m, 1);
         }
-    /// partial pivot routine
-    /// scan 1st column and select the larges element, if its "a11" zero all the a1i-n elements
-    /// otherwise swap the row with the largest element for the 1st row.
 
+        /// partial pivot routine
+        /// scan 1st column and select the larges element, if its "a11" zero all the a1i-n elements
+        /// otherwise swap the row with the largest element for the 1st row.
 
         for ( int i = 0; i < Copy.GetMatrixRows(); i++)
         {
+            /// initialisations
             int swapRow = 0;
-            double pivot = 0;
+            double pivot = Copy.GetMatrixRCElement(i+1, i+1);
             double tempVar_1 = 0;
             double tempVar_2 = 0;
 
             /// iterate over the ith column to find the largest entry - this will
-            /// become the pivot for the ith row
+            /// become the pivot for the ith row. Set the swapRow to j the row that
+            /// has to be swapped with ith.
 
             for (int j = i; j < Copy.GetMatrixCols(); j++)
             {
-//                cout << " iterate  - the Pivot is " << pivot << " and the swaprow is " << swapRow << endl;
+//                cout << " iterate  - the Pivot is " << pivot << " and the swaprow is " << swapRow << " and i is " << i <<endl;
                 if ( Abs(pivot) < Abs(Copy.GetMatrixRCElement(j+1, i+1)))
                 {
                    pivot =  Copy.GetMatrixRCElement(j+1, i+1);
                    swapRow = j;
-//                   cout << " Set the Pivot " << pivot << " and the swaprow is " << swapRow << endl;
+//                   cout << " Set the Pivot " << pivot << " and the swaprow is " << swapRow << " and i is " << i <<endl;
                 }
-
             }
 
 
@@ -814,10 +814,12 @@ const Matrix MatrixInvert()
                 cout << " Pivot = " << pivot << " and swapRow = " << swapRow << "  and i = " << i << endl;
             }
 
+            /// if swapRow = i -> means we couldn't find a row with a pivot value greater than the ith row
+            /// if swapRow = 0 then the pivot is the ith row element( i, i)
 
             if(swapRow != i && swapRow != 0)
-            /// swap the 2 rows of the this matrix - iterate along the column
             {
+                /// swap the 2 rows of the this matrix - iterate along the column
 //                cout << " in the swap block"  << endl;
                 for( int x = 0; x < Copy.GetMatrixCols(); x++)
                 {
@@ -878,11 +880,9 @@ const Matrix MatrixInvert()
 
 double Determinant()
 {
-   /// set up identify matrix I and a Copy matrix
-//    Matrix I(this->GetMatrixRows(), this->GetMatrixCols());
+    /// initialisation and a Copy matrix
+
     Matrix Copy = *this;
-    int swapRow = 0;
-    double pivot = 0;
     double tempVar_1 = 0;
     int numberSwaps = 0;
     double det = 1;
@@ -895,25 +895,28 @@ double Determinant()
     /// check matrix dimensions -  must be square
     if (Copy.GetMatrixRows() == Copy.GetMatrixCols())
     {
-
-    /// partial pivot routine
-    /// scan 1st column and select the larges element, if its "a11" zero all the a1i-n elements
-    /// otherwise swap the row with the largest element for the 1st row.
-
+        /// partial pivot routine
+        /// scan 1st column and select the larges element, if its "a11" zero all the a1i-n elements
+        /// otherwise swap the row with the largest element for the 1st row.
 
         for ( int i = 0; i < Copy.GetMatrixRows(); i++)
         {
+            /// initialisations
+            int swapRow = 0;
+            double pivot = Copy.GetMatrixRCElement(i+1, i+1);
+
             /// iterate over the ith column to find the largest entry - this will
-            /// become the pivot for the ith row
+            /// become the pivot for the ith row. Set the swapRow to j the row that
+            /// has to be swapped with ith.
 
             for (int j = i; j < Copy.GetMatrixCols(); j++)
             {
-//                cout << " iterate  - the Pivot is " << pivot << " and the swaprow is " << swapRow << endl;
+//                cout << " iterate  - the Pivot is " << pivot << " and the swaprow is " << swapRow << " and i is " << i << endl;
                 if ( Abs(pivot) < Abs(Copy.GetMatrixRCElement(j+1, i+1)))
                 {
                    pivot =  Copy.GetMatrixRCElement(j+1, i+1);
                    swapRow = j;
-//                   cout << " Set the Pivot " << pivot << " and the swaprow is " << swapRow << endl;
+//                   cout << " Set the Pivot " << pivot << " and the swaprow is " << swapRow << "and i is " << i << endl;
                 }
 
             }
@@ -930,10 +933,12 @@ double Determinant()
                 cout << " Pivot = " << pivot << " and swapRow = " << swapRow << "  and i = " << i << endl;
             }
 
+            /// if swapRow = i -> means we couldn't find a row with a pivot value greater than the ith row
+            /// if swapRow = 0 then the pivot is the ith row element( i, i)
 
             if(swapRow != i && swapRow != 0)
-            /// swap the 2 rows of the this matrix - iterate along the column
             {
+                /// swap the 2 rows of the Copy matrix - iterate along the column
 //                cout << " in the swap block"  << endl;
                 for( int x = 0; x < Copy.GetMatrixCols(); x++)
                 {
@@ -942,6 +947,8 @@ double Determinant()
                     Copy.Set(swapRow, x, tempVar_1);
 
                 }
+
+                /// keep track of track of the number of swaps we do
                 numberSwaps++;
 //
 //                cout << "after the row swaps" << endl;
@@ -966,11 +973,15 @@ double Determinant()
 //            cout << " the Copy matrix is "<< endl << endl;
 //            Copy.Mprint();
         }
+
         /// evaluate the determinant
         for (int i = 0; i < Copy.GetMatrixRows(); i++)
         {
             det *= Copy.GetMatrixRCElement(i+1, i+1);
         }
+
+        /// depending on the number of row swaps we need adjust the result polarity
+        /// odd number of row swaps multiply by -1
         if( (numberSwaps % 2))
         {
             det = -1 * det;
