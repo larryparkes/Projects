@@ -1,0 +1,87 @@
+# depslib dependency file v1.0
+1408249154 source:c:\users\larry\documents\git\projects\matrix\matrix_test.cpp
+	<iostream>
+	"Matrix.h"
+
+1408249003 c:\users\larry\documents\git\projects\matrix\matrix.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<cassert>
+
+1407992840 source:c:\users\larry\documents\git\projects\matrix\test_addition.cpp
+	<iostream>
+	"Matrix.h"
+
+1407992840 source:c:\users\larry\documents\git\projects\matrix\test_assign_add.cpp
+	<iostream>
+	"Matrix.h"
+
+1407993532 source:c:\users\larry\documents\git\projects\matrix\test_assign_multiply.cpp
+	<iostream>
+	"Matrix.h"
+
+1407992840 source:c:\users\larry\documents\git\projects\matrix\test_assign_subtract.cpp
+	<iostream>
+	"Matrix.h"
+
+1407992840 source:c:\users\larry\documents\git\projects\matrix\test_assignment.cpp
+	<iostream>
+	"Matrix.h"
+
+1407992840 source:c:\users\larry\documents\git\projects\matrix\test_constructor_destructor.cpp
+	<iostream>
+	"Matrix.h"
+
+1407993750 source:c:\users\larry\documents\git\projects\matrix\test_equality.cpp
+	<iostream>
+	"Matrix.h"
+
+1407992912 source:c:\users\larry\documents\git\projects\matrix\test_getandset.cpp
+	<iostream>
+	"Matrix.h"
+
+1407927628 source:c:\users\larry\documents\git\projects\matrix\test_getnsetters.cpp
+	<iostream>
+	"Matrix.h"
+
+1407993750 source:c:\users\larry\documents\git\projects\matrix\test_inequality.cpp
+	<iostream>
+	"Matrix.h"
+
+1408250871 source:c:\users\larry\documents\git\projects\matrix\test_matrixmultiply.cpp
+	<iostream>
+	"Matrix.h"
+
+1407992840 source:c:\users\larry\documents\git\projects\matrix\test_multiplication.cpp
+	<iostream>
+	"Matrix.h"
+
+1407992840 source:c:\users\larry\documents\git\projects\matrix\test_subtraction.cpp
+	<iostream>
+	"Matrix.h"
+
+1407993750 source:c:\users\larry\documents\git\projects\matrix\test_transpose.cpp
+	<iostream>
+	"Matrix.h"
+
+1408250359 source:c:\users\larry\documents\git\projects\matrix\test_matrixinverse.cpp
+	<iostream>
+	"Matrix.h"
+
+1407816579 source:c:\users\larry\documents\git\projects\matrix\est_scalarmultiply.cpp
+	<iostream>
+	"Matrix.h"
+
+1407993532 source:c:\users\larry\documents\git\projects\matrix\test_scalarmultiply.cpp
+	<iostream>
+	"Matrix.h"
+
+1408003043 source:c:\users\larry\documents\git\projects\matrix\test_determinant.cpp
+	<iostream>
+	"Matrix.h"
+
+1408015733 source:c:\users\larry\documents\git\projects\matrix\main.cpp
+	<iostream>
+	"Matrix.h"
+
