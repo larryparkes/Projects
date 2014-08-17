@@ -44,43 +44,43 @@ int matrixTest()
 		testGetandSet();
 
 		// test matrix equality
-		/// relational operator == equality operator works correctl
+		/// relational operator == equality operator works correctly
 		testEquality();
 
 		/// test matrix, inequality
 		testInequality();
 
-		/// assign add funcion a += b works correctly
+		/// assign add function a += b works correctly
 		testAssignAdd();
 
 	    // test assignment add operator
-	    /// add funcion a = a + b works correctly
+	    /// add function a = a + b works correctly
 		testAdd();
 
-		/// assign subtract funcion a -= b works correctly
+		/// assign subtract function a -= b works correctly
 		testAssignSubtract();
 
 		// test subtraction c = c - b
-        /// subtraction funcion a = a - b works correctly
+        /// subtraction function a = a - b works correctly
 		testSubtraction();
 
 		// test matrix assign and multiply a *= b;
-		/// assign multiply funcion a *= b works correctly
+		/// assign multiply function a *= b works correctly
 		testAssignMultiply();
 
 		 //test matrix multiplication c = a x b;
-		/// multiply funcion a = a * b works correctly
+		/// multiply function a = a * b works correctly
 		testMMltiplication();
 
 		/// scalar multiplication a = 2 * b or a = b * 2
 		testScalarMultiply();
 
 		// test matrix transpose
-		/// transpose funcion a.transpose() works correctly
+		/// transpose function a.transpose() works correctly
 		testTranspose();
 
-		/// large matrix multiply funcion a = a * a works correctly
-//		testMatrixMultiply();
+		/// large matrix multiply function a = a * a works correctly
+		testMatrixMultiply();
 
         ///test matrix inverse function
         testMatrixInverse();
