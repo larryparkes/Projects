@@ -10,6 +10,7 @@ using std::endl;
 int testTranspose()
 {
 	{
+
 		cout << " Matrix Transpose a^t Test" << endl;
 //		cout << "Set up for x" << endl;
 		Matrix a(5, 5), b(3, 5), c(4, 1);

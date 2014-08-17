@@ -9,7 +9,8 @@ using std::endl;
 
 int testSubtraction()
 {
-	// attempt to subtract non square matricies m x n + m x y, m x y + n x y & m x y + n x z
+
+	// attempt to subtract non square matrices m x n + m x y, m x y + n x y & m x y + n x z
 	// a is a m x n, b is a m x y, c n x y, d is a n x z
 
 	cout << " Matrix Subtraction a = c - d Test..." << endl;

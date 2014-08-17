@@ -63,8 +63,7 @@ int testMMltiplication()
             cout << " Matrix Assign Multiply second test failed" << endl;
             return 1;
         }
-//      cout << " c" << endl;
-//      c.Mprint();
+
 
 
         c = c * b;

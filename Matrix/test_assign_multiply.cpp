@@ -15,11 +15,10 @@ int testAssignMultiply()
 	Matrix c(3, 2);
 	Matrix d(4, 5);
 	Matrix x, y(3, 3), z;
-//	cout << " d matrix is " << endl;
-//	d.Mprint();
+
 
     //multiply matrices of different dimensions 2, 3 x 4, 5 & 3, 2 x 4, 5
-//	cout << "set up of the b matrix -  non zero values" << endl;
+
 
 	int val = 1;
 	for (int i = 1; i <= b.GetMatrixSize(); i++, val++)

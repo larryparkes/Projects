@@ -10,6 +10,7 @@ using std::endl;
 int testMatrixDeterminant()
 {
 	{
+
         cout << " Matrix Determinant det(a) Test...." << endl;
 //		cout << "Set up for x" << endl;
 		Matrix a(4, 4), b, c, I(4, 4);

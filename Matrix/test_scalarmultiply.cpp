@@ -10,6 +10,7 @@ using std::endl;
 int testScalarMultiply()
 {
 	{
+
 		/*Matrix x;*/
 		cout << " Matrix Scalar Multiply a = c * 2 or 2 * c Test" << endl;
 		Matrix a(4, 4), b, c, I(4, 4), d;

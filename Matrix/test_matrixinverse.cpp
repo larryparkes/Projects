@@ -10,6 +10,7 @@ using std::endl;
 int testMatrixInverse()
 {
 	{
+
         cout << " Matrix Inversion a^(-1) Test...." << endl;
 //		cout << "Set up for x" << endl;
 		Matrix a(4, 4), b, c, I(4, 4);

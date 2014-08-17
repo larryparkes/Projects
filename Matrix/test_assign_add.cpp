@@ -9,7 +9,7 @@ using std::endl;
 
 int testAssignAdd()
 {
-	// attempt to add non square matricies m x n + m x y, m x y + n x y & m x y + n x z
+	// attempt to add non square matrices m x n + m x y, m x y + n x y & m x y + n x z
 	// a is a m x n, b is a m x y, c n x y, d is a n x z
     cout << " Matrix Assign Addition a += d Test..." << endl;
 	Matrix a(4, 2), b(4, 5), c(2, 5), d(2, 3), e;

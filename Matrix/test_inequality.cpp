@@ -9,6 +9,7 @@ using std::endl;
 
 int testInequality()
 {
+
 	cout << " Matrix Inequality a != b Test... " << endl;
 	Matrix a(5, 5), b(5, 5), c(4, 5);
 
@@ -23,7 +24,7 @@ int testInequality()
 	b = a;
 
 	// check if b != a
-//	cout << "Check if b != a" << endl;
+
 	if (b != a)
 	{
 		cout << " Failed the first matrix inequaity test" << endl;
@@ -31,7 +32,6 @@ int testInequality()
 	}
 
 
-//	cout << "Check if c != a" << endl;
 	if (c == a)
 	{
 		cout << " Failed the second matrix inequaity test" << endl;

@@ -9,6 +9,7 @@ using std::endl;
 
 int testEquality()
 {
+
 	cout << " Matrix Equality a == b Test..." << endl;
 	Matrix a(5, 5), b(5, 5), c(4, 5);
 
