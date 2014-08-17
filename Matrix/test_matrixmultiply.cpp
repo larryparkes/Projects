@@ -10,86 +10,75 @@ using std::endl;
 int testMatrixMultiply()
 {
 	{
-		/* Test matrix multiply of very large matricies;*/
-		cout << "Set up for x" << endl;
-		Matrix a(5, 5), b(5, 5), c(1000, 1000);
+		/* Test matrix multiply of very large matrices;*/
+		cout << " Large Matrix Multiply Test ..." << endl;
+
+		Matrix a(7, 7), b(7, 7), c(7, 7), I(7, 7);
+        for(int i = 0; i < I.GetMatrixRows(); i++)
+        {
+            I.SetMatrixRCElement(i+1, i+1, 1);
+        }
+
+		// set up the matrices
 
 
-		// set up the matricies
-
-		cout << "set up of the a matrix -  non zero values" << endl;
-		int mSize = a.GetMatrixSize();
 		int val = 1;
-		for (int i = 0; i < mSize; i++, val++)
+		for (int i = 0; i < a.GetMatrixSize(); i++, val++)
 		{
 			srand(i);
-			val = (int)rand() % 5;
+			val = (int)rand() % 10 - 2;
 			a.SetMatrixElement(i, val);
 
 		}
-		cout << " a matrix set" << endl;
-		cout << "a is " << endl;
-		a.Mprint();
-//		system("pause");
-
-		a *= a;
-		cout << "a is now a * a" << endl;
-		a.Mprint();
-//		system("pause");
 
 
-		cout << "set up of the b matrix -  non zero values" << endl;
-		mSize = b.GetMatrixSize();
-		//int val = 1;
-		for (int i = 0; i < mSize; i++, val++)
+        double z = a.Determinant();
+
+		b = a.MatrixTranspose();
+		a *= b;
+
+
+		for (int i = 0; i < b.GetMatrixSize(); i++, val++)
 		{
 			srand(i);
-			val = (int)rand() % 5;
+			val = (int)rand() % 10 -2;
 			b.SetMatrixElement(i, val);
 
 		}
-		cout << "b is " << endl;
-		b.Mprint();
-//		system("pause");
 
-		b = b * b;
-		cout << "b is now b * b" << endl;
-		b.Mprint();
-//		system("pause");
+		c = b.MatrixTranspose();
+        z = b.Determinant();
+		b = b * c;
 
-        cout << " Check a should be equal to b" << endl << endl;
-        if (a == b)
+        if (a != b)
         {
-            cout << " Success a = b \n" << endl;
-
-        }
-        else
-        {
-            cout << " Problem .... a != b"  << endl;
+            cout << " failed first large Matrix Multiply tests" << endl;
+            return 1;
         }
 
-		cout << "set up of the c matrix -  non zero values" << endl;
-		mSize = c.GetMatrixSize();
-//		int val = 1;
-		for (int i = 0; i < mSize; i++, val++)
+
+		for (int i = 0; i < c.GetMatrixSize(); i++, val++)
 		{
 			srand(i);
-			val = (int)rand() % 3;
+			val = (int)rand() % 7 ;
 			c.SetMatrixElement(i, val);
-
 		}
 
-		cout << " c is " << endl;
-		//c.Mprint();
+        Matrix d;
 
-//		system("pause");
+		d = c.MatrixTranspose();
+		c = c * d;
+		d = c.MatrixInvert();
+		c *= d;
+		z = c.Determinant();
+		if(c != I)
+        {
+            cout << " failed second large Matrix Multiply tests" << endl;
+            return 1;
+        }
 
-		c = c * c;
-		cout << "c is now c = c * c" << endl;
-//		system("pause");
-		//c.Mprint();
-//		system("pause");
+        cout << " Large Matrix Multiply Passed!" << endl;
 	}
-//	system("pause");
+
 	return 0;
 }
