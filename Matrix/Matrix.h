@@ -15,7 +15,7 @@ using std::endl;
 const int maxrows = 10000;
 const int maxcols = 10000;
 const long double epsilon = 1e-12;
-//const int mylong = 1;
+const int mylong = 1;
 
 
 class Matrix
