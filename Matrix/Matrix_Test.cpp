@@ -24,6 +24,7 @@ int testMatrixMultiply();
 int testMatrixInverse();
 int testScalarMultiply();
 int testMatrixDeterminant();
+int testHilbert();
 
 bool Matrix::mdbug = 0;
 
@@ -87,6 +88,9 @@ int matrixTest()
 
         /// test matrix determinant function
         testMatrixDeterminant();
+
+        /// test hilbert matrix function
+        testHilbert();
 
 
 	}

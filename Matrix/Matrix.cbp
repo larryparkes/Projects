@@ -45,6 +45,7 @@
 		<Unit filename="test_equality.cpp" />
 		<Unit filename="test_getandset.cpp" />
 		<Unit filename="test_getnsetters.cpp" />
+		<Unit filename="test_hilbert.cpp" />
 		<Unit filename="test_inequality.cpp" />
 		<Unit filename="test_matrixinverse.cpp" />
 		<Unit filename="test_matrixmultiply.cpp" />

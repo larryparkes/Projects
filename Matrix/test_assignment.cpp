@@ -33,6 +33,6 @@ int testAssignment()
         return 1;
     }
 
-    cout << " Matrix Assigment Passed!" << endl << endl;
+    cout << " Matrix Assignment Passed!" << endl << endl;
 	return 0;
 }

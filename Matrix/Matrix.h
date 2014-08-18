@@ -14,20 +14,21 @@ using std::endl;
 
 const int maxrows = 10000;
 const int maxcols = 10000;
-const double epsilon = 1e-10;
+const long double epsilon = 1e-12;
+const int mylong = 1;
 
 
 class Matrix
 {
     private:
-    inline void Set(int row, int col, double value)
+    inline void Set(int row, int col, long double value)
     {
         assert(row >= 0 && row < this->GetMatrixRows());
         assert(col >= 0 && col < this->GetMatrixCols());
         this->ePtr[row * this->GetMatrixCols() + col] = value;
     }
 
-    inline void Set(int index, double value)
+    inline void Set(int index, long double value)
     {
         assert(index >= 0 && index < this->GetMatrixSize());
         this->ePtr[index] = value;
@@ -60,7 +61,7 @@ class Matrix
         }
     }
 
-    inline static double Abs( double a)
+    inline static long double Abs( long double a)
     {
         // get the absolute value of a and return that.
         if( a < 0 )
@@ -87,7 +88,7 @@ class Matrix
         // set these to zero.  This routine does this.
         for( int i = 0; i < this->GetMatrixSize(); i++)
         {
-            if(Abs(this->GetMatrixElement(i)) <= epsilon)
+            if(Abs(this->GetMatrixElement(i)) <= 1e06*epsilon)
             {
                 this->Set(i, 0);
             }
@@ -102,7 +103,7 @@ class Matrix
 
 	int mRows;		// row dimension of the matrix array
 	int mCols;		// column dimension of the matrix array
-	double *ePtr;	// the location of the first element of the matrix
+	long double *ePtr;	// the location of the first element of the matrix
 
 
     public:
@@ -116,7 +117,9 @@ class Matrix
 		int mSize = mRows * mCols;
 
 		/// set the mSize of the matrix array
-		this->ePtr = new double[mSize];
+//		this->ePtr = new double[mSize];
+		this->ePtr = new long double[mSize];
+
 
 		/// set the elements of the matrix array to zero
 		for (int index = 0; index < mSize; index++)
@@ -163,7 +166,8 @@ class Matrix
 		/// allocate space in memory for the element array of matrix
 		//  calculate the size of the memory required
 		int mSize = mRows * mCols;
-		ePtr = new double[mSize];
+//		ePtr = new double[mSize];
+		ePtr = new long double[mSize];
 
 		/// set all the elements of the matrix array to zero
 		for (int index = 0; index < mSize; index++)
@@ -203,7 +207,8 @@ class Matrix
 	{
 		/// calculate the mSize of the array to hold the matrix elements
 		/// allocate memory for the new matrix
-		this->ePtr = new double[matrixToCopy.GetMatrixSize()];
+//		this->ePtr = new double[matrixToCopy.GetMatrixSize()];
+		this->ePtr = new long double[matrixToCopy.GetMatrixSize()];
 
 		/// copy the elements into the new matrix
 		for (int index = 0; index < matrixToCopy.GetMatrixSize(); index++)
@@ -245,7 +250,8 @@ class Matrix
 //				cout << " 2 Assignment Operator... the address of this->ePtr is " << (this->ePtr) << endl;
 
 				/// allocate the required space for the new this matrix
-				this->ePtr = new double[rhside.GetMatrixSize()];
+//				this->ePtr = new double[rhside.GetMatrixSize()];
+				this->ePtr = new long double[rhside.GetMatrixSize()];
 //				cout << " 3 Assignment Operator allocation... the address of this->ePtr is " << this->ePtr << endl;
 //              cout << " Assignment Operator Called... the address of rhside.ePtr is " << (rhside.ePtr) << endl;
 			}
@@ -311,7 +317,7 @@ class Matrix
 	}
 
 	// set the elements of the matrix array
-	void SetMatrixElement(int index, double val)
+	void SetMatrixElement(int index, long double val)
 	{
 		/// check that we are setting an element within the range of the matrix array space
 //		int mSize = this->GetMatrixSize();
@@ -328,7 +334,7 @@ class Matrix
  	}
 
 	/// set matrix element using RC format
-	void SetMatrixRCElement(int row, int col, double val)
+	void SetMatrixRCElement(int row, int col, long double val)
 	{
 		/// check the validity of the RC format
 		if (((row >= 1 && row <= this->GetMatrixRows()) && (col >= 1 && col <= this->GetMatrixCols())))
@@ -362,13 +368,13 @@ class Matrix
 	}
 
 	/// get a matrix element from the matrix array
-	double GetMatrixElement(const int index) const
+	long double GetMatrixElement(const int index) const
 	{
 		return this->ePtr[index];
 	}
 
 	/// get matrix element RC format from the matrix array
-	double GetMatrixRCElement(const int row, const int col) const
+	long double GetMatrixRCElement(const int row, const int col) const
 	{
 		/// convert RC format to an index
 		int index = (row - 1) * (this->GetMatrixCols()) + col - 1;
@@ -381,6 +387,7 @@ class Matrix
 	/// assign add matrices
 	const Matrix &operator+=(const Matrix &rhside)
 	{
+	    long double sum;
 		/// check the this and the rhside dimensions, must be the same
 		if(mdbug)
         {
@@ -394,8 +401,14 @@ class Matrix
 
 			for (int index = 0; index < rhside.GetMatrixSize(); index++)
 			{
-				this->Set(index, (this->GetMatrixElement(index)
-					+ rhside.GetMatrixElement(index)));
+			    sum = this->GetMatrixElement(index) + rhside.GetMatrixElement(index);
+			    if(Abs(sum) <= epsilon)
+                {
+                    sum = 0;
+                }
+                this->Set(index, sum);
+//				this->Set(index, (this->GetMatrixElement(index)
+//					+ rhside.GetMatrixElement(index)));
 			}
 //			cout << "adding done!" << endl;
 
@@ -420,6 +433,7 @@ class Matrix
 	const Matrix &operator-=(const Matrix &rhside)
 	{
 		/// check the this and the rhside dimensions, must be the same
+		long double sum;
 		if(mdbug)
         {
             cout << " Called assign subtract operator...." << endl;
@@ -431,7 +445,13 @@ class Matrix
             /// iterate over the array and subtract
 			for (int index = 0; index < rhside.GetMatrixSize(); index++)
 			{
-				this->Set(index, (this->GetMatrixElement(index) - rhside.GetMatrixElement(index)));
+			    sum = this->GetMatrixElement(index) - rhside.GetMatrixElement(index);
+			    if(Abs(sum) <= epsilon)
+                {
+                    sum = 0;
+                }
+                this->Set(index, sum);
+//				this->Set(index, (this->GetMatrixElement(index) - rhside.GetMatrixElement(index)));
 			}
 
 			/// if we have very small elements < epsilon set them to zero
@@ -530,7 +550,7 @@ class Matrix
 		{
 			for (int j = 0; j < rhside.GetMatrixCols(); j++)
 			{
-				double sum = 0;
+				long double sum = 0;
 				for (int k = 0; k < this->GetMatrixCols(); k++)
 				{
 				    sum += this->GetMatrixRCElement(i + 1, k + 1)
@@ -556,7 +576,9 @@ class Matrix
 
 		delete[] this->ePtr;
 		this->ePtr = nullptr;
-		this->ePtr = new double[this->GetMatrixSize()];
+//		this->ePtr = new double[this->GetMatrixSize()];
+		this->ePtr = new long double[this->GetMatrixSize()];
+
 
 		/// copy the product results into the this matrix array elements
 		for (int i = 0; i < this->GetMatrixSize(); i++)
@@ -568,8 +590,8 @@ class Matrix
         {
             cout << "multiplication called... " << endl;
         }
-
-
+        /// if we have very small elements < epsilon set them to zero
+        this->Round();
 		return *this;
 	}
 
@@ -577,6 +599,7 @@ class Matrix
 	friend const Matrix operator+(const Matrix &lhside, const Matrix &rhside)
 	{
 		/// check the lhside and rhside dimensions, must be the same
+		long double sum;
         if(mdbug)
         {
             cout << " Called add operator a = b + c ...." << endl;
@@ -589,12 +612,19 @@ class Matrix
 
 			for (int index = 0; index < rhside.GetMatrixSize(); index++)
 			{
-				result.SetMatrixElement(index, (lhside.GetMatrixElement(index) + rhside.GetMatrixElement(index)));
+			    /// if we have very small elements < epsilon set them to zero
+			    sum = lhside.GetMatrixElement(index) + rhside.GetMatrixElement(index);
+			    if(Abs(sum) <= epsilon)
+                {
+                    sum = 0;
+                }
+                result.SetMatrixElement(index, sum);
+//				result.SetMatrixElement(index, (lhside.GetMatrixElement(index) + rhside.GetMatrixElement(index)));
 			}
 //			cout << "adding done! \n" << endl;
 
             /// if we have very small elements < epsilon set them to zero
-            result.Round();
+//            result.Round();
 			return result;
 		}
 		else
@@ -618,7 +648,7 @@ class Matrix
 	/// subtraction of matrices c = a - b;
 	friend const Matrix operator-(const Matrix &lhside, const Matrix &rhside)
 	{
-
+        long double sum;
 		if(mdbug)
         {
             cout << " Called subtraction operator c = a - b ...." << endl;
@@ -633,11 +663,17 @@ class Matrix
 
 			for (int index = 0; index < rhside.GetMatrixSize(); index++)
 			{
-                results.Set(index, (lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index)));
+			    /// if we have very small sum elements < epsilon set them to zero
+			    sum = lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index);
+			    if(Abs(sum) <= epsilon)
+                {
+                    sum = 0;
+                }
+                results.Set(index, sum);
 			}
 //			cout << "subtraction done! \n" << endl;
 
-            /// if we have very small elements < epsilon set them to zero
+
 			results.Round();
 			return results;
 		}
@@ -689,7 +725,7 @@ class Matrix
 		{
 			for (int j = 0; j < rhside.GetMatrixCols(); j++)
 			{
-				double sum = 0;
+				long double sum = 0;
 				for (int k = 0; k < lhside.GetMatrixCols(); k++)
 				{
                     sum += lhside.GetMatrixRCElement(i + 1, k + 1)
@@ -705,6 +741,7 @@ class Matrix
 		}
 
 //		cout << "multiplication 'a * b' called... " << endl;
+        results.Round();
 		return results;
 	}
 
@@ -753,7 +790,7 @@ class Matrix
 			    /// index is used to step through the elements in the matrix array,
 			    /// since elements are double need to check that the difference is very small
                 /// if that difference is less than epsilon then they are equal.
-				if (Matrix::Abs( lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index) ) <= epsilon )
+				if (Matrix::Abs( lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index) ) <= 1000*epsilon)
 				{
 					test = true;
 					index++;
@@ -818,10 +855,13 @@ const Matrix MatrixInvert()
     /// set up identity matrix I and a Copy matrix
     Matrix I(this->GetMatrixRows(), this->GetMatrixCols());
     Matrix Copy = *this;
+    int elsecount  = 0;
+    int rescount = 0;
 
     if(mdbug)
     {
         cout << " Matrix Invert Function called..." << endl;
+
     }
 
     /// check matrix dimensions -  must be square
@@ -841,9 +881,9 @@ const Matrix MatrixInvert()
         {
             /// initialisations
             int swapRow = 0;
-            double pivot = Copy.GetMatrixRCElement(i+1, i+1);
-            double tempVar_1 = 0;
-            double tempVar_2 = 0;
+            long double pivot = Copy.GetMatrixRCElement(i+1, i+1);
+            long double tempVar_1 = 0;
+            long double tempVar_2 = 0;
 
             /// iterate over the ith column to find the largest entry - this will
             /// become the pivot for the ith row. Set the swapRow to j the row that
@@ -908,13 +948,9 @@ const Matrix MatrixInvert()
 
             }
 
-
-            int elsecount  = 0;
-            int rescount = 0;
-
+            /// Matrix upper and lower decomposition
             /// subtracts the ith row of the this matrix from all the other rows - should make all the other
             /// elements in the pivot column zero
-
 
             for(int k = 0; k < Copy.GetMatrixRows(); k++)
             {
@@ -961,14 +997,14 @@ const Matrix MatrixInvert()
     return *this;
 }
 
-double Determinant()
+long double Determinant()
 {
     /// initialisation and a Copy matrix
 
     Matrix Copy = *this;
-    double tempVar_1 = 0;
+    long double tempVar_1 = 0;
     int numberSwaps = 0;
-    double det = 1;
+    long double det = 1;
 
     if(mdbug)
     {
@@ -986,7 +1022,7 @@ double Determinant()
         {
             /// initialisations
             int swapRow = 0;
-            double pivot = Copy.GetMatrixRCElement(i+1, i+1);
+            long double pivot = Copy.GetMatrixRCElement(i+1, i+1);
 
             /// iterate over the ith column to find the largest entry - this will
             /// become the pivot for the ith row. Set the swapRow to j the row that
@@ -1086,6 +1122,35 @@ double Determinant()
     }
     cout << " Matrix must be square" << endl;
     return 0;
+}
+
+const Matrix Hilbert(int n) const
+{
+    Matrix Hilbert(n, n);
+    long double val;
+    if(mdbug)
+    {
+        cout << " Generate a Hilbert Matrix order = " << n << endl;
+    }
+
+    if( !Hilbert.ValidateRows(n))
+    {
+        cout << "Error"  << endl;
+        // what should we return?????
+        return Hilbert;
+    }
+
+    for(int i = 0; i < n; i++)
+    {
+        for( int j = 0; j < n; j++)
+        {
+            val = (long double)1/(i+1 + j);
+//            cout << " Element Value is " << val << endl;
+            Hilbert.SetMatrixRCElement(i+1, j+1, val);
+        }
+    }
+
+    return Hilbert;
 }
 
 
