@@ -424,6 +424,7 @@ class Matrix
             }
 			cout << "Function assign add matrices c += b " << endl;
 			cout << " addition not possible... inconsistent matrix dimensions..." << endl;
+/* to do - what do we or should we return here */
 			return rhside;
 		}
 
@@ -462,60 +463,11 @@ class Matrix
 		{
 			cout << " Function assign subtract matrices c -= b " << endl;
 			cout << " subtraction not possible inconsistent matrix dimensions..." << endl;
+/* to do - what do we or should we return here */
 			return *this;
 		}
 	}
-/*
-//	 assign multiply matrices c *= b;
-	const Matrix &operator*=(const Matrix &rhside)
-	{
-		if (this->GetMatrixCols() != rhside.GetMatrixRows())
-		{
-			cout << "assign multiply matrices c *= b " << endl;
-			cout << "Multiplication not possible inconsistent matrix dimension" << endl;
-			return *this;
-		}
-		int mSize = this->GetMatrixRows() * rhside.GetMatrixCols();
-		int index = rhside.GetMatrixRows();
 
-		 set up a temporary matrix to hold the contents of the matrix product
-		Matrix temp(this->GetMatrixRows(), rhside.GetMatrixCols());
-
-		for (int i = 0; i < mSize; i++)
-		{
-			int result = 0;
-			for (int j = 0; j < index; j++)
-			{
-			 	temp.ePtr[i] += this->ePtr[(i / temp.mCols)*index + j]
-					* rhside.ePtr[j*temp.mCols + i%temp.mCols];
-				result += this->GetMatrixRCElement(i, j) * rhside.GetMatrixRCElement(j, i)
-
-			}
-		}
-		cout << " Temp is" << endl;
-		temp.Mprint();
-
-		 need adjust the mSize of the this matrix to hold the contents of the product
-		 set the row and column dimensions to agree with the product results
-		this->mRows = temp.mRows;
-		this->mCols = temp.mCols;
-
-		delete the element pointer and create a new one large enough to hold all the
-		 elements of the matrix product
-
-		delete[] ePtr;
-		this->ePtr = nullptr;
-		this->ePtr = new int[mSize];
-
-		 copy the product results into the this matrix array elements
-		for (int i = 0; i < mSize; i++)
-		{
-			this->ePtr[i] = temp.ePtr[i];
-		}
-
-		cout << "multiplication called... " << endl;
-		return *this;
-	}*/
 
 	/// assign multiply matrices c *= b;
 	const Matrix &operator*=(const Matrix &rhside)
@@ -533,6 +485,7 @@ class Matrix
 			}
             cout << "assign multiply matrices c *= b " << endl;
 			cout << "Multiplication not possible inconsistent matrix dimension" << endl;
+/* to do - what do we or should we return here */
 			return *this;
 		}
 
@@ -595,221 +548,6 @@ class Matrix
 		return *this;
 	}
 
-	/// addition of matrices c = a + b;
-	friend const Matrix operator+(const Matrix &lhside, const Matrix &rhside)
-	{
-		/// check the lhside and rhside dimensions, must be the same
-		long double sum;
-        if(mdbug)
-        {
-            cout << " Called add operator a = b + c ...." << endl;
-        }
-
-		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
-			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
-		{
-			Matrix result(rhside.GetMatrixRows(), rhside.GetMatrixCols());
-
-			for (int index = 0; index < rhside.GetMatrixSize(); index++)
-			{
-			    /// if we have very small elements < epsilon set them to zero
-			    sum = lhside.GetMatrixElement(index) + rhside.GetMatrixElement(index);
-			    if(Abs(sum) <= epsilon)
-                {
-                    sum = 0;
-                }
-                result.SetMatrixElement(index, sum);
-//				result.SetMatrixElement(index, (lhside.GetMatrixElement(index) + rhside.GetMatrixElement(index)));
-			}
-//			cout << "adding done! \n" << endl;
-
-            /// if we have very small elements < epsilon set them to zero
-//            result.Round();
-			return result;
-		}
-		else
-		{
-			if(!mdbug)
-            {
-                return rhside;
-            }
-            else
-            {
-                cout << " Function add matrices c = a + b  " << endl;
-                cout << " addition not possible... inconsistent matrix dimensions..." << endl;
-                /* to do - what should we return????? */
-                return lhside;
-            }
-
-		}
-
-	}
-
-	/// subtraction of matrices c = a - b;
-	friend const Matrix operator-(const Matrix &lhside, const Matrix &rhside)
-	{
-        long double sum;
-		if(mdbug)
-        {
-            cout << " Called subtraction operator c = a - b ...." << endl;
-        }
-
-        /// check the lhside and rhside dimensions, must be the same
-		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
-			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
-		{
-            /// create a matrix to hold the results of the operation
-			Matrix results(rhside.GetMatrixRows(), rhside.GetMatrixCols());
-
-			for (int index = 0; index < rhside.GetMatrixSize(); index++)
-			{
-			    /// if we have very small sum elements < epsilon set them to zero
-			    sum = lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index);
-			    if(Abs(sum) <= epsilon)
-                {
-                    sum = 0;
-                }
-                results.Set(index, sum);
-			}
-//			cout << "subtraction done! \n" << endl;
-
-
-			results.Round();
-			return results;
-		}
-		else
-		{
-			if(!mdbug)
-            {
-                return lhside;
-            }
-			cout << " Function subtraction of matrices c = a - b  " << endl;
-			cout << " Subtraction not possible... inconsistent matrix dimensions..." << endl;
-			 /* to do - what should we return????? */
-			return lhside;
-		}
-	}
-
-	/// multiplication of matrices c = a x b
-	friend const Matrix operator *(const Matrix &lhside, const Matrix &rhside)
-	{
-	    if(mdbug)
-        {
-            cout << " Called multiply operator a =  b * c...." << endl;
-        }
-
-		if (lhside.GetMatrixCols() != rhside.GetMatrixRows())
-		{
-			if(!mdbug)
-            {
-                return lhside;
-            }
-			cout << " Function multiplication of matrices c = a x b  " << endl;
-			cout << "Multiplication not possible inconsistent matrix dimension" << endl;
-			 /* to do - what should we return????? */
-
-			return lhside;
-		}
-
-		/// determine the number of elements in the matrix
-		/// get the row index - this is the number of rows in the this matrix
-		/// get the column index - this is the number of columns in the rhside matrix
-		/// set up the results matrix to hold the contents of the matrix product
-
-		Matrix results(lhside.GetMatrixRows(), rhside.GetMatrixCols());
-
-        /// the final Aij element is given by sum( Bik * Ckj) where k correspond to the
-		/// lhside cols or the rhside rows. k is the number of products to be summed to get the Aij term.
-
-		for (int i = 0; i < lhside.GetMatrixRows(); i++)
-		{
-			for (int j = 0; j < rhside.GetMatrixCols(); j++)
-			{
-				long double sum = 0;
-				for (int k = 0; k < lhside.GetMatrixCols(); k++)
-				{
-                    sum += lhside.GetMatrixRCElement(i + 1, k + 1)
-						* rhside.GetMatrixRCElement(k + 1, j + 1);
-                }
-                /// if we have very small elements < epsilon set them to zero
-                if(Abs(sum) <= epsilon)
-                {
-                    sum = 0;
-                }
-                results.Set(i, j, sum );
-			}
-		}
-
-//		cout << "multiplication 'a * b' called... " << endl;
-        results.Round();
-		return results;
-	}
-
-    /// scalar multiplication
-    friend const Matrix operator *( const Matrix &lhside, const double rhside)
-    {
-        if(mdbug)
-        {
-            cout << " Called scalar multiplication..."<< endl;
-        }
-        Matrix Copy = lhside;
-        for(int index = 0; index < Copy.GetMatrixSize(); index++)
-        {
-            Copy.Set(index, rhside * Copy.GetMatrixElement(index));
-        }
-
-        /// if we have very small elements < epsilon set them to zero
-        Copy.Round();
-        return Copy;
-    }
-    /// scalar multiplication
-    friend const Matrix operator *( const double lhside, const Matrix &rhside)
-    {
-        return (rhside * lhside);
-    }
-
-	/// equality operator  a == b
-	friend bool operator==(const Matrix &lhside, const Matrix &rhside)
-	{
-		if(mdbug)
-        {
-            cout << " called equality of Matrices c == a   " << endl;
-        }
-
-		/// initialisations
-		int index = 0;
-		bool test = false;
-
-		/// check if the row and column dimensions are equal if they are check
-		/// then check each element in the matrix to see if they are also equal
-		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
-			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
-		{
-			while (index < rhside.GetMatrixSize())
-			{
-			    /// index is used to step through the elements in the matrix array,
-			    /// since elements are double need to check that the difference is very small
-                /// if that difference is less than epsilon then they are equal.
-				if (Matrix::Abs( lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index) ) <= 1000*epsilon)
-				{
-					test = true;
-					index++;
-				}
-				else
-				{
-				    /// if any element comparison is not true return false
-					return false;
-				}
-			}
-		}
-		return test;
-	}
-
-	/// equality operator  a != b;
-	friend bool operator!=(const Matrix &lhside, const Matrix &rhside)
-	{
-		return !(lhside == rhside);
-	}
 
     /// matrix transpose a^t
 	const Matrix MatrixTranspose()
@@ -904,6 +642,7 @@ const Matrix MatrixInvert()
             if(pivot == 0)
             {
                 cout << "Matrix is singular...  \n" << endl;
+/* to do - what do we or should we return here */
                 return *this;
             }
 
@@ -1124,7 +863,7 @@ long double Determinant()
     return 0;
 }
 
-const Matrix Hilbert(int n) const
+const Matrix GetMatrixHilbert(int n) const
 {
     Matrix Hilbert(n, n);
     long double val;
@@ -1136,7 +875,7 @@ const Matrix Hilbert(int n) const
     if( !Hilbert.ValidateRows(n))
     {
         cout << "Error"  << endl;
-        // what should we return?????
+/* to do what do we return here */
         return Hilbert;
     }
 
@@ -1152,6 +891,242 @@ const Matrix Hilbert(int n) const
 
     return Hilbert;
 }
+
+const Matrix GetMatrixIdentity( int rows, int cols)
+{
+    if(mdbug)
+    {
+        cout << " Set up the Identity Matrix given rows and columns" << endl;
+    }
+    if(!ValidateRows(rows) || rows != cols)
+    {
+        cout << " Rows and Columns must be equal and in the range 1, " << maxrows << endl;
+/* to do what do we return here */
+//        return 1;
+    }
+    Matrix I(rows, cols);
+    for( int i = 0; i < rows; i++)
+    {
+        I.SetMatrixRCElement( i+1, i+1, 1.0);
+    }
+    return I;
+}
+
+/// addition of matrices c = a + b;
+	friend const Matrix operator+(const Matrix &lhside, const Matrix &rhside)
+	{
+		/// check the lhside and rhside dimensions, must be the same
+		long double sum;
+        if(mdbug)
+        {
+            cout << " Called add operator a = b + c ...." << endl;
+        }
+
+		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
+			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
+		{
+			Matrix result(rhside.GetMatrixRows(), rhside.GetMatrixCols());
+
+			for (int index = 0; index < rhside.GetMatrixSize(); index++)
+			{
+			    /// if we have very small elements < epsilon set them to zero
+			    sum = lhside.GetMatrixElement(index) + rhside.GetMatrixElement(index);
+			    if(Abs(sum) <= epsilon)
+                {
+                    sum = 0;
+                }
+                result.SetMatrixElement(index, sum);
+//				result.SetMatrixElement(index, (lhside.GetMatrixElement(index) + rhside.GetMatrixElement(index)));
+			}
+//			cout << "adding done! \n" << endl;
+
+            /// if we have very small elements < epsilon set them to zero
+//            result.Round();
+			return result;
+		}
+		else
+		{
+			if(!mdbug)
+            {
+                return rhside;
+            }
+            else
+            {
+                cout << " Function add matrices c = a + b  " << endl;
+                cout << " addition not possible... inconsistent matrix dimensions..." << endl;
+                /* to do - what should we return????? */
+                return lhside;
+            }
+
+		}
+
+	}
+
+	/// subtraction of matrices c = a - b;
+	friend const Matrix operator-(const Matrix &lhside, const Matrix &rhside)
+	{
+        long double sum;
+		if(mdbug)
+        {
+            cout << " Called subtraction operator c = a - b ...." << endl;
+        }
+
+        /// check the lhside and rhside dimensions, must be the same
+		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
+			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
+		{
+            /// create a matrix to hold the results of the operation
+			Matrix results(rhside.GetMatrixRows(), rhside.GetMatrixCols());
+
+			for (int index = 0; index < rhside.GetMatrixSize(); index++)
+			{
+			    /// if we have very small sum elements < epsilon set them to zero
+			    sum = lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index);
+			    if(Abs(sum) <= epsilon)
+                {
+                    sum = 0;
+                }
+                results.Set(index, sum);
+			}
+//			cout << "subtraction done! \n" << endl;
+
+
+			results.Round();
+			return results;
+		}
+		else
+		{
+			if(!mdbug)
+            {
+                return lhside;
+            }
+			cout << " Function subtraction of matrices c = a - b  " << endl;
+			cout << " Subtraction not possible... inconsistent matrix dimensions..." << endl;
+			 /* to do - what should we return????? */
+			return lhside;
+		}
+	}
+
+	/// multiplication of matrices c = a x b
+	friend const Matrix operator *(const Matrix &lhside, const Matrix &rhside)
+	{
+	    if(mdbug)
+        {
+            cout << " Called multiply operator a =  b * c...." << endl;
+        }
+
+		if (lhside.GetMatrixCols() != rhside.GetMatrixRows())
+		{
+			if(!mdbug)
+            {
+                return lhside;
+            }
+			cout << " Function multiplication of matrices c = a x b  " << endl;
+			cout << "Multiplication not possible inconsistent matrix dimension" << endl;
+			 /* to do - what should we return????? */
+
+			return lhside;
+		}
+
+		/// determine the number of elements in the matrix
+		/// get the row index - this is the number of rows in the this matrix
+		/// get the column index - this is the number of columns in the rhside matrix
+		/// set up the results matrix to hold the contents of the matrix product
+
+		Matrix results(lhside.GetMatrixRows(), rhside.GetMatrixCols());
+
+        /// the final Aij element is given by sum( Bik * Ckj) where k correspond to the
+		/// lhside cols or the rhside rows. k is the number of products to be summed to get the Aij term.
+
+		for (int i = 0; i < lhside.GetMatrixRows(); i++)
+		{
+			for (int j = 0; j < rhside.GetMatrixCols(); j++)
+			{
+				long double sum = 0;
+				for (int k = 0; k < lhside.GetMatrixCols(); k++)
+				{
+                    sum += lhside.GetMatrixRCElement(i + 1, k + 1)
+						* rhside.GetMatrixRCElement(k + 1, j + 1);
+                }
+                /// if we have very small elements < epsilon set them to zero
+                if(Abs(sum) <= epsilon)
+                {
+                    sum = 0;
+                }
+                results.Set(i, j, sum );
+			}
+		}
+
+//		cout << "multiplication 'a * b' called... " << endl;
+        results.Round();
+		return results;
+	}
+
+    /// scalar multiplication
+    friend const Matrix operator *( const Matrix &lhside, const double rhside)
+    {
+        if(mdbug)
+        {
+            cout << " Called scalar multiplication..."<< endl;
+        }
+        Matrix Copy = lhside;
+        for(int index = 0; index < Copy.GetMatrixSize(); index++)
+        {
+            Copy.Set(index, rhside * Copy.GetMatrixElement(index));
+        }
+
+        /// if we have very small elements < epsilon set them to zero
+        Copy.Round();
+        return Copy;
+    }
+    /// scalar multiplication
+    friend const Matrix operator *( const double lhside, const Matrix &rhside)
+    {
+        return (rhside * lhside);
+    }
+
+	/// equality operator  a == b
+	friend bool operator==(const Matrix &lhside, const Matrix &rhside)
+	{
+		if(mdbug)
+        {
+            cout << " called equality of Matrices c == a   " << endl;
+        }
+
+		/// initialisations
+		int index = 0;
+		bool test = false;
+
+		/// check if the row and column dimensions are equal if they are check
+		/// then check each element in the matrix to see if they are also equal
+		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
+			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
+		{
+			while (index < rhside.GetMatrixSize())
+			{
+			    /// index is used to step through the elements in the matrix array,
+			    /// since elements are double need to check that the difference is very small
+                /// if that difference is less than epsilon then they are equal.
+				if (Matrix::Abs( lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index) ) <= 1000*epsilon)
+				{
+					test = true;
+					index++;
+				}
+				else
+				{
+				    /// if any element comparison is not true return false
+					return false;
+				}
+			}
+		}
+		return test;
+	}
+
+	/// equality operator  a != b;
+	friend bool operator!=(const Matrix &lhside, const Matrix &rhside)
+	{
+		return !(lhside == rhside);
+	}
 
 
 };

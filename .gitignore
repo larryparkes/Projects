@@ -1,4 +1,6 @@
 *.cbp
 *.depend
 *.layout
-*.savefail
+*.save-failed
+*.o
+*.exe

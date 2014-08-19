@@ -21,7 +21,7 @@ int testHilbert()
 	for( int i  = 2; i <= 8; i++)
     {
         ///set up the Hilbert matrix dimension i x i
-        H = H.Hilbert(i);
+        H = H.GetMatrixHilbert(i);
         Matrix I(i ,i);
 //        H.Mprint();
 //        z = H.Determinant();
@@ -59,7 +59,7 @@ int testHilbert()
         }
     }
 
-    cout << " Matrix - Hilbert Matrix Test Passed!" << endl;
+    cout << " Matrix - Hilbert Matrix Test Passed!" << endl << endl;
 
 	return 0;
 }

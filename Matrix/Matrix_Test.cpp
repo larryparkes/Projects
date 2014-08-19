@@ -25,6 +25,7 @@ int testMatrixInverse();
 int testScalarMultiply();
 int testMatrixDeterminant();
 int testHilbert();
+int testIdentity();
 
 bool Matrix::mdbug = 0;
 
@@ -91,6 +92,9 @@ int matrixTest()
 
         /// test hilbert matrix function
         testHilbert();
+
+        /// test matrix identity function
+        testIdentity();
 
 
 	}
