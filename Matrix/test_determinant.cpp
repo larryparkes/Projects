@@ -63,9 +63,39 @@ int testMatrixDeterminant()
 		z = I.Determinant();
 		if( (z - 1) * (z - 1) >= epsilon*epsilon)
         {
-            cout << " failed the second determinant function test"  << endl;
+            cout << " failed the 2nd determinant function test"  << endl;
             return 1;
         }
+
+        int x = 12;
+        int y = 2160;
+        int w = 6048000;
+        for(int i = 2; i < 5; i++)
+        {
+            a = a.GetMatrixHilbert(i);
+            a = a.MatrixInvert();
+//            a.Mprint();
+            z = a.Determinant();
+            long long int p = z;
+            if( i == 2 && p != x)
+            {
+                cout << " failed the 3rd determinant function test " << endl;
+                return 1;
+            }
+            if( i == 3 && p != y)
+            {
+                cout << " failed the 4th determinant function test " << endl;
+                return 1;
+            }
+            if( i == 4 && p != w)
+            {
+                cout << " failed the 5th determinant function test " << endl;
+                return 1;
+            }
+ //        cout << " determinant of a is " << (long long int)z << endl << endl;
+
+        }
+
 		cout << " Matrix Determinant Passed!" << endl << endl;
 
     }

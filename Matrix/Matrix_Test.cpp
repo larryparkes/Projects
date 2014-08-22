@@ -55,30 +55,29 @@ int matrixTest()
 		/// assign add function a += b works correctly
 		testAssignAdd();
 
-	    // test assignment add operator
-	    /// add function a = a + b works correctly
+        ///test assignment add operator
+	    // add function a = a + b works correctly
 		testAdd();
 
 		/// assign subtract function a -= b works correctly
 		testAssignSubtract();
 
-		// test subtraction c = c - b
-        /// subtraction function a = a - b works correctly
+		/// test subtraction c = c - b
+        // subtraction function a = a - b works correctly
 		testSubtraction();
 
-		// test matrix assign and multiply a *= b;
+		/// test matrix assign and multiply a *= b;
 		/// assign multiply function a *= b works correctly
 		testAssignMultiply();
 
-		 //test matrix multiplication c = a x b;
-		/// multiply function a = a * b works correctly
+		/// test matrix multiplication c = a x b;
+
 		testMMltiplication();
 
 		/// scalar multiplication a = 2 * b or a = b * 2
 		testScalarMultiply();
 
-		// test matrix transpose
-		/// transpose function a.transpose() works correctly
+		/// test matrix transpose
 		testTranspose();
 
 		/// large matrix multiply function a = a * a works correctly
@@ -90,11 +89,11 @@ int matrixTest()
         /// test matrix determinant function
         testMatrixDeterminant();
 
-        /// test hilbert matrix function
+        /// test Hilbert Matrix function
         testHilbert();
 
         /// test matrix identity function
-        testIdentity();
+        //testIdentity();
 
 
 	}

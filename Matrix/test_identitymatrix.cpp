@@ -18,11 +18,17 @@ int testIdentity()
     for(int i = 2; i < 10; i++)
     {
         Matrix b(i, i);
+        a = b;
+
         for( int j = 0; j < i; j++)
         {
             b.SetMatrixRCElement(j+1, j+1, 1);
         }
-        a = a.GetMatrixIdentity(i, i);
+        a = a.GetMatrixIdentity();
+//        cout << " a is = " << endl;
+//        a.Mprint();
+//        cout << " b is = " << endl;
+//        b.Mprint();
 
         if( a != b)
         {
@@ -30,14 +36,19 @@ int testIdentity()
         }
     }
 
-    for(int i = 1; i < 10; i++)
+    for(int i = 2; i < 10; i++)
     {
         Matrix b(i, i);
+        Matrix a(i, i+1);
         for( int j = 0; j < i; j++)
         {
             b.SetMatrixRCElement(j+1, j+1, 1);
         }
-        a = a.GetMatrixIdentity(i, i+1);
+        a = a.GetMatrixIdentity();
+//        cout << " a is = " << endl;
+//        a.Mprint();
+//        cout << " b is = " << endl;
+//        b.Mprint();
 
         if( a == b)
         {
