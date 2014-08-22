@@ -37,7 +37,7 @@ class Matrix
 
     inline bool ValidateRows(int rows)
     {
-        // check the range of the rows variable
+    /// check the range of the rows variable
         if(rows >= 1 || rows <= maxrows)
         {
             return true;
@@ -50,7 +50,7 @@ class Matrix
 
     inline bool ValidateCols(int cols)
     {
-        // check the range of the cols variable
+    /// check the range of the cols variable
         if(cols >= 1 || cols <= maxcols)
         {
             return true;
@@ -82,6 +82,7 @@ class Matrix
         }
         return a;
     }
+
 /// round function
     inline Matrix Round()
     {
@@ -131,8 +132,6 @@ class Matrix
     }
 
 /// Matrix upper and lower decomposition
-/// subtracts the ith row of the this matrix from all the other rows - should make all the other
-/// elements in the pivot column zero
     inline void UnLMatrixDecomp( Matrix &a, Matrix &I, int rowcount)
     {
         for(int k = 0; k < a.GetMatrixRows(); k++)
@@ -142,6 +141,8 @@ class Matrix
             {
                 if(rowcount != k)
                 {
+    /// subtracts the row count row of the this matrix from all the other rows - should make all the other
+    /// elements in the pivot column zero
                     if(Abs(a.GetMatrixRCElement(k+1, l+1) - a.GetMatrixRCElement(rowcount+1, l+1) * tempVar_1) <= epsilon)
                     {
                         a.Set(k, l, 0);
@@ -189,11 +190,8 @@ class Matrix
         }
     }
 
-
-
-
-/// Normalise the row - iterate over the ith row and divide each element by the pivot
-/// this will make the pivot element  unity
+/// Normalise the row - iterate over the row count row and divide each element by the pivot
+/// this will make the pivot elements  unity
     inline void NormaliseMatrixRow( Matrix &a, Matrix &I, int rowcount, long double pivot)
     {
         for(int j = 0; j < a.GetMatrixCols(); j++)
@@ -224,15 +222,12 @@ class Matrix
 
     }
 
-
-
-
 /// class members variables
-
 
 	int mRows;		// row dimension of the matrix array
 	int mCols;		// column dimension of the matrix array
 	long double *ePtr;	// the location of the first element of the matrix
+
 
 
     public:
@@ -246,7 +241,6 @@ class Matrix
 		int mSize = mRows * mCols;
 
     /// set the mSize of the matrix array
-//		this->ePtr = new double[mSize];
 		this->ePtr = new long double[mSize];
 
 
@@ -262,17 +256,13 @@ class Matrix
             cout << "Default Constructor Called ... Rows variable address is "<< &(this->mCols) << endl;
             cout << "Default Constructor Called ... and the address of ePtr is " << &(this->ePtr) << endl;
             cout << "Default Constructor Called ... and ePtr points to " << (this->ePtr) << endl;
-
-//            cout << " Default Constructor Called ..." << endl;
         }
-
 	}
 
 /// constructor
 	Matrix(int rows, int cols)
 	{
     /// validate the row and column dimensions
-    /// row dimension
 		if (!ValidateRows(rows))
 		{
 			cout << " Matrix Row dimension must be between 1 and "<< maxrows << "..." << endl;
@@ -284,7 +274,6 @@ class Matrix
 			mRows = rows;
 		}
 
-    /// column dimension
 		if (!ValidateCols(cols))
 		{
 			cout << " Matrix Column dimension must be between 1 and "<< maxcols << "..." << endl;
@@ -297,22 +286,20 @@ class Matrix
 		}
 
     /// allocate space in memory for the element array of matrix
-		//  calculate the size of the memory required
-		int mSize = mRows * mCols;
-//		ePtr = new double[mSize];
-		ePtr = new long double[mSize];
+
+		int mSize = this->mRows * this->mCols;
+		this->ePtr = new long double[mSize];
 
     /// set all the elements of the matrix array to zero
 		for (int index = 0; index < mSize; index++)
 		{
-			ePtr[index] = 0;
+			this->ePtr[index] = 0;
 		}
         if (mdbug)
         {
             cout << " First Constructor Called ...  and the address of ePtr is " << &(this->ePtr) << endl;
             cout << " First Constructor Called ...  and the ePtr points to address " << (this->ePtr) << endl;
             cout << " First Constructor Called ...  and the value of ePtr is " << *(this->ePtr) << endl;
-//            cout << " First Constructor Called ...." << endl;
         }
 
 	}
@@ -383,16 +370,11 @@ class Matrix
 			if (this->GetMatrixSize() != rhside.GetMatrixSize())
 			{
     /// release the memory space for the this matrix array
-//				cout << " 1 Assignment Operator... the address of this->ePtr is " << (this->ePtr) << endl;
 				delete[] this->ePtr;
 				this->ePtr = nullptr;
-//				cout << " 2 Assignment Operator... the address of this->ePtr is " << (this->ePtr) << endl;
 
     /// allocate the required space for the new this matrix
-//				this->ePtr = new double[rhside.GetMatrixSize()];
 				this->ePtr = new long double[rhside.GetMatrixSize()];
-//				cout << " 3 Assignment Operator allocation... the address of this->ePtr is " << this->ePtr << endl;
-//              cout << " Assignment Operator Called... the address of rhside.ePtr is " << (rhside.ePtr) << endl;
 			}
     /// set the this matrix dimensions to that of the rhside
 			this->mRows = rhside.GetMatrixRows();
@@ -409,7 +391,6 @@ class Matrix
 		    cout << " Assignment Operator Complete... the address of this->ePtr is " << (this->ePtr) << endl;
 		    cout << " Assignment Operator Complete... the address of this->ePtr is " << *(this->ePtr) << endl;
         }
-
 		return *this;
 	}
 
@@ -470,7 +451,6 @@ class Matrix
 		}
 
     /// set the element value
-		//this->ePtr[index] = val;
         Set(index, val);
  	}
 
@@ -521,19 +501,20 @@ class Matrix
 		int index = (row - 1) * (this->GetMatrixCols()) + col - 1;
 
     ///look up the index and return the element
-//		return this->ePtr[index];
 		return this->GetMatrixElement(index);
 	}
 
 /// assign add matrices
 	const Matrix &operator+=(const Matrix &rhside)
 	{
-	    long double sum;
-		/// check the this and the rhside dimensions, must be the same
+    /// check the this and the rhside dimensions, must be the same
 		if(mdbug)
         {
             cout << " Called assign add operator...." << endl;
         }
+
+    /// initialisation
+        long double sum;
 
 		if ((this->GetMatrixRows() == rhside.GetMatrixRows()) &&
 			(this->GetMatrixCols() == rhside.GetMatrixCols()))
@@ -549,40 +530,34 @@ class Matrix
                     sum = 0;
                 }
                 this->Set(index, sum);
-//				this->Set(index, (this->GetMatrixElement(index)
-//					+ rhside.GetMatrixElement(index)));
 			}
-//			cout << "adding done!" << endl;
-
-
-//            this->Round();
 			return *this;
 		}
 		else
 		{
-			if(!mdbug)
+			if(mdbug)
             {
-                return rhside;
+                cout << "Function assign add matrices c += b " << endl;
+                cout << " addition not possible... inconsistent matrix dimensions..." << endl;
+                return *this;
             }
-			cout << "Function assign add matrices c += b " << endl;
-			cout << " addition not possible... inconsistent matrix dimensions..." << endl;
 // TODO (Larry#1#): what should we return here
 /* to do - what do we or should we return here */
-			return rhside;
+			return *this;
 		}
-
 	}
 
 /// assign subtract matrices
 	const Matrix &operator-=(const Matrix &rhside)
 	{
-    /// check the this and the rhside dimensions, must be the same
-		long double sum;
-		if(mdbug)
+        if(mdbug)
         {
             cout << " Called assign subtract operator...." << endl;
         }
+    /// initialisation
+        long double sum;
 
+    /// check the this and the rhside dimensions, must be the same
 		if ((this->GetMatrixRows() == rhside.GetMatrixRows()) &&
 			(this->GetMatrixCols() == rhside.GetMatrixCols()))
 		{
@@ -597,20 +572,21 @@ class Matrix
                     sum = 0;
                 }
                 this->Set(index, sum);
-//				this->Set(index, (this->GetMatrixElement(index) - rhside.GetMatrixElement(index)));
 			}
 
-
-//			this->Round();
 			return *this;
 		}
 		else
 		{
-			cout << " Function assign subtract matrices c -= b " << endl;
-			cout << " subtraction not possible inconsistent matrix dimensions..." << endl;
+			if(mdbug)
+            {
+                cout << " Function assign subtract matrices c -= b " << endl;
+                cout << " subtraction not possible inconsistent matrix dimensions..." << endl;
 // TODO (Larry#1#): what should we return here
 /* to do - what do we or should we return here */
-			return *this;
+                return *this;
+            }
+            return *this;
 		}
 	}
 
@@ -635,12 +611,7 @@ class Matrix
 /* to do - what do we or should we return here */
 			return *this;
 		}
-
-    /// determine the number of elements in the matrix product
-    /// get the row index - this is the number of rows in the this matrix
-    /// get the column index - this is the number of columns in the rhside matrix
     /// set up a temporary matrix to hold the contents of the matrix product
-
 		Matrix result(this->GetMatrixRows(), rhside.GetMatrixCols());
 
     /// the final Aij element is given by sum( Bik * Ckj) where k correspond to the
@@ -665,32 +636,20 @@ class Matrix
                 result.Set(i, j, sum );
 			}
 		}
-    /// need adjust the mSize of the this matrix to hold the contents of the product
-    /// set the row and column dimensions to agree with the product results
-
-		this->SetMatrixRows(result.GetMatrixRows());
-		this->SetMatrixCols(result.GetMatrixCols());
 
     /// delete the element pointer and create a new one large enough to hold all the
     /// elements of the matrix product
-
 		delete[] this->ePtr;
 		this->ePtr = nullptr;
 		this->ePtr = new long double[this->GetMatrixSize()];
 
-
-    /// copy the product results into the this matrix array elements
-		for (int i = 0; i < this->GetMatrixSize(); i++)
-		{
-			this->Set(i, result.GetMatrixElement(i));
-		}
+    /// set the this object = the results object
+        *this = result;
 
 		if(mdbug)
         {
             cout << "multiplication called... " << endl;
         }
-    /// if we have very small elements < epsilon set them to zero
-//        this->Round();
 		return *this;
 	}
 
@@ -705,31 +664,18 @@ class Matrix
 
     /// set up a temporary matrix transpose - set the transpose matrix rows and cols equal to
     /// the cols and rows of the this matrix
-
 		Matrix transpose(this->GetMatrixCols(), this->GetMatrixRows());
 
     /// iterate over the this matrix and set transpose Aij = this Aji
-
 		for (int i = 0; i < this->GetMatrixCols(); ++i)
 		{
 			for (int j = 0; j < this->GetMatrixRows(); ++j)
 			{
                 transpose.Set(i, j, this->GetMatrixRCElement(j + 1, i + 1));
-
 			}
-
 		}
-    /// iterate over the array and copy to the this array.
-		int mSize = this->GetMatrixCols() * this->GetMatrixRows();
-		for (int index = 0; index < mSize; ++index)
-		{
-//			this->SetMatrixElement(index, transpose.GetMatrixElement(index));
-			this->Set(index, transpose.GetMatrixElement(index));
-		}
-
-    /// set the this->mCols and the this->mRows the same as the transpose matrix
-		this->SetMatrixCols(transpose.GetMatrixCols());
-		this->SetMatrixRows(transpose.GetMatrixRows());
+    /// set this = transpose.
+        *this = transpose;
 		return *this;
 	}
 
@@ -741,7 +687,6 @@ const Matrix MatrixInvert()
         cout << " Matrix Invert Function called..." << endl;
 
     }
-
     /// Initialisation
     Matrix Copy = *this;
     Matrix I;
@@ -763,7 +708,6 @@ const Matrix MatrixInvert()
 
     /// partial pivot routine
             SelectPivot( Copy, swapRow, i, pivot);
-
             if(pivot == 0)
             {
                 cout << "Matrix is singular...  \n" << endl;
@@ -791,7 +735,6 @@ const Matrix MatrixInvert()
             {
                 cout << " after the normalise row " << i+1 << " - the Copy matrix is "<< endl << endl;
                 Copy.Mprint();
-
             }
 
     /// Matrix upper and lower decomposition - manipulates the Copy Matrix and Identity Matrix
@@ -803,7 +746,6 @@ const Matrix MatrixInvert()
                 Copy.Mprint();
                 I.Mprint();
             }
-
         }
         if(mdbug)
         {
@@ -846,7 +788,6 @@ long double Determinant()
     /// become the pivot for the ith row. Set the swapRow to j the row that
     /// has to be swapped with ith.
             SelectPivot(Copy, swapRow, i, pivot);
-
             if(pivot == 0)
             {
                 cout << "Matrix is singular...  \n" << endl;
@@ -865,7 +806,6 @@ long double Determinant()
             {
     /// swap the 2 rows of the Copy matrix - iterate along the column
     /// keep track of track of the number of swaps we do
-
                 SwapRows(Copy, swapRow, i);
                 numberSwaps++;
             }
@@ -894,6 +834,7 @@ long double Determinant()
         return det;
     }
     cout << " Matrix must be square" << endl;
+// TODO (Larry#1#): what should we return here
     return 0;
 }
 
@@ -986,38 +927,13 @@ const Matrix GetMatrixIdentity(int rows)
 	friend const Matrix operator+(const Matrix &lhside, const Matrix &rhside)
 	{
     /// check the lhside and rhside dimensions, must be the same
-
         if(mdbug)
         {
             cout << " Called add operator a = b + c ...." << endl;
         }
-		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
-			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
-		{
-		    Matrix result  = lhside;
-		    result += rhside;
-
-			return result;
-		}
-		else
-		{
-			if(!mdbug)
-            {
-// TODO (Larry#1#): What should we return
-
-                return rhside;
-            }
-            else
-            {
-                cout << " Function add matrices c = a + b  " << endl;
-                cout << " addition not possible... inconsistent matrix dimensions..." << endl;
-// TODO (Larry#1#): what should we return
-/* to do - what should we return????? */
-                return lhside;
-            }
-
-		}
-
+        Matrix result  = lhside;
+        result += rhside;
+        return result;
 	}
 
 /// subtraction of matrices c = a - b;
@@ -1027,28 +943,9 @@ const Matrix GetMatrixIdentity(int rows)
         {
             cout << " Called subtraction operator c = a - b ...." << endl;
         }
-
-    /// check the lhside and rhside dimensions, must be the same
-		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
-			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
-		{
-    /// create a matrix to hold the results of the operation
-            Matrix results = lhside;
-            results -= rhside;
-			return results;
-		}
-		else
-		{
-			if(!mdbug)
-            {
-                return lhside;
-            }
-			cout << " Function subtraction of matrices c = a - b  " << endl;
-			cout << " Subtraction not possible... inconsistent matrix dimensions..." << endl;
-// TODO (Larry#1#): what should we return
-/* to do - what should we return????? */
-			return lhside;
-		}
+        Matrix results = lhside;
+        results -= rhside;
+        return results;
 	}
 
 /// multiplication of matrices c = a x b
@@ -1058,24 +955,6 @@ const Matrix GetMatrixIdentity(int rows)
         {
             cout << " Called multiply operator a =  b * c...." << endl;
         }
-
-		if (lhside.GetMatrixCols() != rhside.GetMatrixRows())
-		{
-			if(!mdbug)
-            {
-                return lhside;
-            }
-			cout << " Function multiplication of matrices c = a x b  " << endl;
-			cout << "Multiplication not possible inconsistent matrix dimension" << endl;
-// TODO (Larry#1#): what should we return
-/* to do - what should we return????? */
-
-			return lhside;
-		}
-
-    /// determine the number of elements in the matrix
-    /// get the row index - this is the number of rows in the this matrix
-    /// get the column index - this is the number of columns in the rhside matrix
     /// set up the results matrix to hold the contents of the matrix product
         Matrix results = lhside;
         results *= rhside;
@@ -1112,31 +991,26 @@ const Matrix GetMatrixIdentity(int rows)
         {
             cout << " called equality of Matrices c == a   " << endl;
         }
-
     /// initialisations
 		int index = 0;
 		bool test = false;
 
     /// check if the row and column dimensions are equal if they are check
-    /// then check each element in the matrix to see if they are also equal
 		if ((lhside.GetMatrixRows() == rhside.GetMatrixRows()) &&
 			(lhside.GetMatrixCols() == rhside.GetMatrixCols()))
 		{
+    /// then check each element in the matrix to see if they are also equal
 			while (index < rhside.GetMatrixSize())
 			{
-    /// index is used to step through the elements in the matrix array,
-    /// since elements are double need to check that the difference is very small
     /// if that difference is less than epsilon then they are equal.
-				if (Matrix::Abs( lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index) ) <= 1000*epsilon)
-				{
-					test = true;
-					index++;
-				}
-				else
+				if (Matrix::Abs( lhside.GetMatrixElement(index) - rhside.GetMatrixElement(index) ) > 1000*epsilon)
 				{
     /// if any element comparison is not true return false
-					return false;
+					test = false;
+					return test;
 				}
+				test = true;
+				index++;
 			}
 		}
 		return test;

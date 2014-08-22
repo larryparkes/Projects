@@ -49,25 +49,28 @@ int testAdd()
 
 	//illegal inconsistent matrix dimensions
 	e = a + b;
-	if( e != b)
+//	e.Mprint();
+//	a.Mprint();
+//	b.Mprint();
+	if( e != a)
     {
         cout << " failed 1st group test at the first add function test..." << endl;
         return 1;
     }
     e = b + c;
-    if( e != c)
+    if( e != b)
     {
         cout << " failed 1st group test at the second add function test..." << endl;
         return 1;
     }
 	e = c + b;
-	if( e != b)
+	if( e != c)
     {
         cout << " failed 1st group test at the third add function test..." << endl;
         return 1;
     }
 	e = e + d;
-	if( e != d)
+	if( e != e)
     {
         cout << " failed 1st group test at the forth add function test..." << endl;
         return 1;

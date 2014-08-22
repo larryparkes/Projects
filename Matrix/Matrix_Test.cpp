@@ -71,7 +71,6 @@ int matrixTest()
 		testAssignMultiply();
 
 		/// test matrix multiplication c = a x b;
-
 		testMMltiplication();
 
 		/// scalar multiplication a = 2 * b or a = b * 2
@@ -92,8 +91,8 @@ int matrixTest()
         /// test Hilbert Matrix function
         testHilbert();
 
-        /// test matrix identity function
-        //testIdentity();
+//        /// test matrix identity function
+//        //testIdentity();
 
 
 	}
