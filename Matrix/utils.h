@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#define DEBUG_LOGGING 1
+#define DEBUG_LOGGING 0
 
 // this is the end case for the variadic template chain
 inline void Log(std::ostream& out)

@@ -13,6 +13,7 @@ add_executable(MatrixTests
  test_assign_subtract.cpp         test_multiplication.cpp
  test_constructor_destructor.cpp  test_scalarmultiply.cpp
  test_determinant.cpp             test_subtraction.cpp
- test_equality.cpp                test_transpose.cpp)
+ test_equality.cpp                test_transpose.cpp
+ utils.h)
 
 
