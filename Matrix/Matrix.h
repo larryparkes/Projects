@@ -1,6 +1,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include "utils.h"
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -12,8 +14,8 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-const int maxrows = 10000;
-const int maxcols = 10000;
+const int maxrows = 1000;
+const int maxcols = 1000;
 const long double epsilon = 1e-12;
 //const int mylong = 1;
 
@@ -64,7 +66,7 @@ class Matrix
 /// Absolute value function
     inline static long double Abs( long double a)
     {
-        // get the absolute value of a and return that.
+        /// get the absolute value of a and return that.
         if( a < 0 )
         {
             a = -a;
@@ -75,7 +77,7 @@ class Matrix
 /// Absolute value function
     inline static int Abs( int a)
     {
-        // get the absolute value of a and return that.
+        /// get the absolute value of a and return that.
         if( a < 0 )
         {
             a = -a;
@@ -164,7 +166,7 @@ class Matrix
     }
 
 /// Upper and Lower matrix decomposition routine manipulates all the off diagonal elements to zero
-    inline void UnLMatrixDecomp( Matrix &a, int rowcount)
+    inline void UnLMatrixDecomp(Matrix &a, int rowcount)
     {
         for(int k = 0; k < a.GetMatrixRows(); k++)
         {
@@ -243,7 +245,6 @@ class Matrix
     /// set the mSize of the matrix array
 		this->ePtr = new long double[mSize];
 
-
     /// set the elements of the matrix array to zero
 		for (int index = 0; index < mSize; index++)
 		{
@@ -252,7 +253,7 @@ class Matrix
 
         if( Matrix::mdbug )
         {
-            cout << "Default Constructor Called ... Rows variable address is "<< &(this->mRows) << endl;
+            LOG_DEBUG("Default Constructor Called ... Rows variable address is ", &(this->mRows));
             cout << "Default Constructor Called ... Rows variable address is "<< &(this->mCols) << endl;
             cout << "Default Constructor Called ... and the address of ePtr is " << &(this->ePtr) << endl;
             cout << "Default Constructor Called ... and ePtr points to " << (this->ePtr) << endl;
@@ -286,7 +287,6 @@ class Matrix
 		}
 
     /// allocate space in memory for the element array of matrix
-
 		int mSize = this->mRows * this->mCols;
 		this->ePtr = new long double[mSize];
 
@@ -295,13 +295,10 @@ class Matrix
 		{
 			this->ePtr[index] = 0;
 		}
-        if (mdbug)
-        {
-            cout << " First Constructor Called ...  and the address of ePtr is " << &(this->ePtr) << endl;
-            cout << " First Constructor Called ...  and the ePtr points to address " << (this->ePtr) << endl;
-            cout << " First Constructor Called ...  and the value of ePtr is " << *(this->ePtr) << endl;
-        }
 
+        LOG_DEBUG(" First Constructor Called ...  and the address of ePtr is ", &(this->ePtr));
+        LOG_DEBUG(" First Constructor Called ...  and the ePtr points to address ", (this->ePtr));
+        LOG_DEBUG(" First Constructor Called ...  and the value of ePtr is ", *(this->ePtr));
 	}
 
 /// destructor
@@ -376,14 +373,16 @@ class Matrix
     /// allocate the required space for the new this matrix
 				this->ePtr = new long double[rhside.GetMatrixSize()];
 			}
+
     /// set the this matrix dimensions to that of the rhside
 			this->mRows = rhside.GetMatrixRows();
 			this->mCols = rhside.GetMatrixCols();
 
     /// copy the rhs elements into the this matrix
-
 			for (int index = 0; index < rhside.GetMatrixSize(); index++)
-				this->SetMatrixElement(index, rhside.GetMatrixElement(index));
+            {
+                this->SetMatrixElement(index, rhside.GetMatrixElement(index));
+            }
 		}
         if(mdbug)
         {
@@ -865,7 +864,6 @@ const Matrix GetMatrixHilbert(int dimension) const
             Hilbert.Set(i, j, val);
         }
     }
-
     return Hilbert;
 }
 
@@ -918,7 +916,6 @@ const Matrix GetMatrixIdentity(int rows)
             }
             I.Set( i, i, 1.0);
         }
-
     }
     return I;
 }
@@ -1021,7 +1018,5 @@ const Matrix GetMatrixIdentity(int rows)
 	{
 		return !(lhside == rhside);
 	}
-
-
 };
 #endif

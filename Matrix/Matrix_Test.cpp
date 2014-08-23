@@ -27,7 +27,7 @@ int testMatrixDeterminant();
 int testHilbert();
 int testIdentity();
 
-bool Matrix::mdbug = 0;
+bool Matrix::mdbug = false;
 
 
 int matrixTest()
