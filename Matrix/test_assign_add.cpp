@@ -50,40 +50,63 @@ int testAssignAdd()
 	//illegal inconsistent matrix dimensions
 //	a.Mprint();
 //	b.Mprint();
-	a += b;
-//	a.Mprint();
-//	b.Mprint();
-	if( a != a)
+    int test = 0;
+    try
+    {
+        test++;
+        a += b;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+    }
+
+	if(test)
     {
         cout << " failed 1st group test at the first add function test..." << endl;
         return 1;
     }
-    a += c;
-    if( a != a)
+
+    try
+    {
+        test++;
+        a += c;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+    }
+    if(test)
     {
         cout << " failed 1st group test at the second add function test..." << endl;
         return 1;
     }
-	a +=  b;
-	if( a != a)
+
+    try
+    {
+        test++;
+        a += d;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+    }
+	if(test)
     {
         cout << " failed 1st group test at the third add function test..." << endl;
         return 1;
     }
+
+
 	a = d;
-	if( a != a)
-    {
-        cout << " failed 1st group test at the forth add function test..." << endl;
-        return 1;
-    }
-
-	// assignment operator set "e" to "a" and add
-
 	e = a;
 
-	a += e;
-//	a.Mprint();
-//	e.Mprint();
+		// assignment operator set "e" to "a" and add
+
+    a += e;
 
 	if ( a != 2*e)
     {
@@ -94,8 +117,6 @@ int testAssignAdd()
     // assignment operator set "e" to "b" and add
 	a = b;
 	a += b;
-//	a.Mprint();
-//	b.Mprint();
 	if ( a != 2*b)
     {
         cout << " failed 2nd group test at the second add function test..." << endl;

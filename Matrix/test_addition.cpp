@@ -46,31 +46,69 @@ int testAdd()
 //	cout << "e is " << endl;
 //	e.Mprint();
 
-
+    int test = 0;
 	//illegal inconsistent matrix dimensions
-	e = a + b;
-//	e.Mprint();
-//	a.Mprint();
-//	b.Mprint();
-	if( e != a)
+	try
+	{
+	    test++;
+	    e = a + b;
+//        e.Mprint();
+//        a.Mprint();
+//        b.Mprint();
+	}
+	catch(std::runtime_error(e))
+	{
+	    --test;
+	    LOG_DEBUG(e.what());
+	}
+	if(test)
     {
         cout << " failed 1st group test at the first add function test..." << endl;
         return 1;
     }
-    e = b + c;
-    if( e != b)
+
+    try
+    {
+        test++;
+        e = b + c;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+    }
+    if(test)
     {
         cout << " failed 1st group test at the second add function test..." << endl;
         return 1;
     }
-	e = c + b;
-	if( e != c)
+
+    try
+    {
+        test++;
+        e = c + b;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+    }
+    if(test)
     {
         cout << " failed 1st group test at the third add function test..." << endl;
         return 1;
     }
-	e = e + d;
-	if( e != e)
+    try
+    {
+        test++;
+        e = e + d;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+    }
+	if(test)
     {
         cout << " failed 1st group test at the forth add function test..." << endl;
         return 1;

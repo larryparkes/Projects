@@ -10,24 +10,90 @@ using std::endl;
 int testConstructorDestructor()
 {
 	{
-
+        int test = 0;
 	    cout << " Matrix Constructors test..."<< endl;
-		Matrix a;
-        if(a.GetMatrixCols() != a.GetMatrixRows())
+        try
         {
-           cout << " Matrix Constructor  first test failed" << endl;
-           return 1;
+            test++;
+            Matrix a(0, 10);
+        }
+        catch(std::runtime_error(e))
+        {
+            --test;
+//            std::cout << e.what() << std::endl;
         }
 
-		Matrix b(10, 5);
-		if(b.GetMatrixCols()!= 5 || b.GetMatrixRows() != 10)
+        if(test != 0)
         {
-            cout << " Matrix Constructor  second test failed" << endl;
-            return 1;
+            cout << " Matrix Constructor first test failed.." << endl;
         }
+
+        try
+        {
+            test++;
+            Matrix b(10, 0);
+        }
+        catch(std::runtime_error(e))
+        {
+            --test;
+ //           std::cout << e.what() << std::endl;
+
+        }
+        if(test != 0)
+        {
+            cout << " Matrix Constructor seconds test failed.." << endl;
+        }
+
+        try
+        {
+            test++;
+            Matrix c(10001, 10);
+        }
+        catch(std::runtime_error(e))
+        {
+            --test;
+//            std::cout << e.what() << std::endl;
+        }
+
+        if(test != 0)
+        {
+            cout << " Matrix Constructor third test failed.." << endl;
+        }
+
+        try
+        {
+            test++;
+            Matrix d(10, 10001);
+        }
+        catch(std::runtime_error(e))
+        {
+            --test;
+//            std::cout << e.what() << std::endl;
+        }
+
+        if(test != 0)
+        {
+            cout << " Matrix Constructor fourth test failed.." << endl;
+        }
+
+
+//        try
+//        {
+//            test++;
+//            Matrix a(10000, 10000);
+//            Matrix b(10000, 10000);
+////            Matrix c(10000, 10000);
+////            Matrix d(10000, 10000);
+////            Matrix e(10000, 10000);
+//        }
+//        catch(std::runtime_error(e))
+//        {
+//            --test;
+//            std::cout << e.what() << std::endl;
+//            cout << " Matrix Constructor fifth test failed.." << endl;
+//        }
 
         cout << " Matrix Constructor Passed!" << endl << endl;
-
 
 	}
 

@@ -35,22 +35,35 @@ int testIdentity()
             cout << " failed 1st Matrix Identity Test function" << endl;
         }
     }
-
+    int test = 0;
     for(int i = 2; i < 10; i++)
     {
         Matrix b(i, i);
         Matrix a(i, i+1);
+
+
         for( int j = 0; j < i; j++)
         {
             b.SetMatrixRCElement(j+1, j+1, 1);
         }
-        a = a.GetMatrixIdentity();
+        try
+        {
+            test++;
+            a = a.GetMatrixIdentity();
+        }
+        catch(std::runtime_error(e))
+        {
+            --test;
+            LOG_DEBUG(e.what());
+//            cout << e.what() << endl;
+        }
+
 //        cout << " a is = " << endl;
 //        a.Mprint();
 //        cout << " b is = " << endl;
 //        b.Mprint();
 
-        if( a == b)
+        if(test)
         {
             cout << " failed 2nd Matrix Identity Test function" << endl;
         }

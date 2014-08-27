@@ -32,7 +32,7 @@ int testMatrixInverse()
 		a.SetMatrixRCElement(4, 3, 3);
 		a.SetMatrixRCElement(4, 4, 3);
 
-
+        Matrix k(4, 3);
         /// identity Matrix
 
         for( int i = 0; i < a.GetMatrixRows(); i++)
@@ -45,6 +45,12 @@ int testMatrixInverse()
                 }
             }
         }
+
+        for(int i = 0; i < k.GetMatrixSize(); i++)
+        {
+            k.SetMatrixElement(i, a.GetMatrixElement(i));
+        }
+//        k.Mprint();
 
 		b = a.MatrixInvert();
         c = a * b;
@@ -94,58 +100,77 @@ int testMatrixInverse()
 
 
 
-    }
 
-    Matrix e(7, 7), f, I(7, 7);
+
+        Matrix e(7, 7), f, Ia(7, 7);
 //    cout << "set up of the e matrix -  non zero values" << endl;
 //	mSize = c.GetMatrixSize();
-	double val = 1;
-	for (int i = 0; i < e.GetMatrixSize(); i++, val++)
-	{
-		srand(i);
-		val = (int)rand() % 7 +1 ;
-		e.SetMatrixElement(i, val);
-	}
+        double val = 1;
+        for (int i = 0; i < e.GetMatrixSize(); i++, val++)
+        {
+            srand(i);
+            val = (int)rand() % 7 +1 ;
+            e.SetMatrixElement(i, val);
+        }
 
 //  set up the identity matrix I
-    for(int j = 0; j < I.GetMatrixRows(); j++)
-    {
-        I.SetMatrixRCElement(j+1, j+1, 1);
-    }
+        for(int j = 0; j < I.GetMatrixRows(); j++)
+        {
+            Ia.SetMatrixRCElement(j+1, j+1, 1);
+        }
 
-	f = e;
-    double z = e.Determinant();
-	e = e.MatrixInvert();
-    f = f * e;
-    if( f !=I && z != 11319)
-    {
-        cout << " Fifth Matrix Inversion Test failed! " << endl;
-        return 1;
-    }
+        f = e;
+        double z = e.Determinant();
+        e = e.MatrixInvert();
+        f = f * e;
+        if( f !=Ia && z != 11319)
+        {
+            cout << " Fifth Matrix Inversion Test failed! " << endl;
+            return 1;
+        }
 
 
-    for (int i = 0; i < e.GetMatrixSize(); i++, val++)
-	{
-		srand(i);
-		val = (int)rand() % 7 + 1;
-		val = 1/val;
-		e.SetMatrixElement(i, val);
+        for (int i = 0; i < e.GetMatrixSize(); i++, val++)
+        {
+            srand(i);
+            val = (int)rand() % 7 + 1;
+            val = 1/val;
+            e.SetMatrixElement(i, val);
+        }
+
+        f = e;
+        z = e.Determinant();
+        e = e.MatrixInvert();
+        f = f * e;
+
+        z=f.Determinant();
+
+        if(f != Ia && z != 1)
+        {
+            cout << " Sixth Matrix Inversion Test failed! " << endl;
+            return 1;
+        }
+        int test = 0;
+        try
+        {
+            test++;
+            k = k.MatrixInvert();
+        }
+        catch(std::runtime_error(e))
+        {
+            --test;
+            LOG_DEBUG(e.what());
+//            cout << e.what() << endl;
+        }
+        if(test)
+        {
+            cout << "seventh Matrix Inversion Test failed! " << endl;
+            return 1;
+        }
+        cout << " Matrix Inversion Passed!" << endl << endl;
 	}
-
-	f = e;
-    z = e.Determinant();
-	e = e.MatrixInvert();
-    f = f * e;
-
-    z=f.Determinant();
-
-    if(f != I && z != 1)
-    {
-        cout << " Sixth Matrix Inversion Test failed! " << endl;
-        return 1;
-    }
-    cout << " Matrix Inversion Passed!" << endl << endl;
 
 	return 0;
 }
 
+;

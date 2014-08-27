@@ -35,39 +35,35 @@ int matrixTest()
 	{
 	    /// test the constructors and destructor
 		testConstructorDestructor();
-
+//
 		/// test the getters and setters
-//		testGetnSetters();
-
+		testGetnSetters();
+//
 		/// test assignment operator
 		testAssignment();
-
+//
 		/// test the get and set to update matrix elements
 		testGetandSet();
 
-		// test matrix equality
 		/// relational operator == equality operator works correctly
 		testEquality();
 
-		/// test matrix, inequality
+		/// test matrix, inequality != operator
 		testInequality();
 
-		/// assign add function a += b works correctly
+		/// assign add function a += b;
 		testAssignAdd();
 
-        ///test assignment add operator
-	    // add function a = a + b works correctly
+        ///test addition operator a = b + c;
 		testAdd();
 
-		/// assign subtract function a -= b works correctly
+		/// assign subtract function a -= b;
 		testAssignSubtract();
 
 		/// test subtraction c = c - b
-        // subtraction function a = a - b works correctly
 		testSubtraction();
 
 		/// test matrix assign and multiply a *= b;
-		/// assign multiply function a *= b works correctly
 		testAssignMultiply();
 
 		/// test matrix multiplication c = a x b;
@@ -79,7 +75,7 @@ int matrixTest()
 		/// test matrix transpose
 		testTranspose();
 
-		/// large matrix multiply function a = a * a works correctly
+		/// large matrix multiply function a = a * a
 		testMatrixMultiply();
 
         ///test matrix inverse function
@@ -88,11 +84,11 @@ int matrixTest()
         /// test matrix determinant function
         testMatrixDeterminant();
 
-        /// test Hilbert Matrix function
-        testHilbert();
-
+//        /// test Hilbert Matrix function
+//        testHilbert();
+//
 //        /// test matrix identity function
-//        //testIdentity();
+//        testIdentity();
 
 
 	}

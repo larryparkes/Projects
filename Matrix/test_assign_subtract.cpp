@@ -52,55 +52,79 @@ int testAssignSubtract()
 	//illegal inconsistent matrix dimensions
 //	a.Mprint();
 //	b.Mprint();
-	a -= b;
-//	a.Mprint();
-//	b.Mprint();
-	if( a != a)
+    int test = 0;
+    try
     {
-        cout << " failed 1st group test at the first assign subtract function test..." << endl;
-        return 1;
+        test++;
+        a -= b;
     }
-    a -= c;
-    if( a != a)
+    catch(std::runtime_error(e))
     {
-        cout << " failed 1st group test at the second assign subtract function test..." << endl;
-        return 1;
+        --test;
+        LOG_DEBUG(e.what());
+//        cout << e.what() << endl;
     }
-	a -=  b;
-	if( a != a)
+
+	if(test)
     {
-        cout << " failed 1st group test at the third assign subtract function test..." << endl;
-        return 1;
-    }
-	a -= d;
-	if( a != a)
-    {
-        cout << " failed 1st group test at the forth assign subtract function test..." << endl;
+        cout << " failed 1st group test at the first subtract function test..." << endl;
         return 1;
     }
 
-	// assignment operator set "e" to "a" and subtract
+    try
+    {
+        test++;
+        a -= c;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+//        cout << e.what() << endl;
+    }
+    if(test)
+    {
+        cout << " failed 1st group test at the second subtract function test..." << endl;
+        return 1;
+    }
 
+    try
+    {
+        test++;
+        a -= d;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+//        cout << e.what() << endl;
+    }
+	if(test)
+    {
+        cout << " failed 1st group test at the third subtract function test..." << endl;
+        return 1;
+    }
+
+
+	a = d;
 	e = a;
 
-	a -= e;
-//	a.Mprint();
-//	e.Mprint();
+		// assignment operator set "e" to "a" and subtract
+
+    a -= e;
 
 	if ( a != 0*e)
     {
-        cout << " failed 2nd group test at the first assign subtract function test..." << endl;
+        cout << " failed 2nd group test at the first subtract function test..." << endl;
         return 1;
 
     }
     // assignment operator set "e" to "b" and subtract
 	a = b;
 	a -= b;
-//	a.Mprint();
-//	b.Mprint();
 	if ( a != 0*b)
     {
-        cout << " failed 2nd group test at the second assign subtract function test..." << endl;
+        cout << " failed 2nd group test at the second subtract function test..." << endl;
         return 1;
 
     }
@@ -109,7 +133,7 @@ int testAssignSubtract()
 	a -= c;
 	if ( a == c || a != 0*c)
     {
-        cout << " failed 2nd group test at the third sassign subtract function test..." << endl;
+        cout << " failed 2nd group test at the third subtract function test..." << endl;
         return 1;
 
     }
@@ -118,7 +142,7 @@ int testAssignSubtract()
 	a -= d;
 	if ( a == d || a != 0*d)
     {
-        cout << " failed 2nd group test at the fourth assign subtract function test..." << endl;
+        cout << " failed 2nd group test at the fourth subtract function test..." << endl;
         return 1;
 
     }

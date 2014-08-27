@@ -48,32 +48,73 @@ int testSubtraction()
 //	cout << "e is " << endl;
 //	e.Mprint();
 
-
+    int test = 0;
 	//illegal inconsistent matrix dimensions
-//	a.Mprint();
-//	b.Mprint();
-	a = a - b;
-//	a.Mprint();
-//	b.Mprint();
-	if( a != a)
+	try
+	{
+	    test++;
+	    e = a - b;
+//        e.Mprint();
+//        a.Mprint();
+//        b.Mprint();
+	}
+	catch(std::runtime_error(e))
+	{
+	    --test;
+	    LOG_DEBUG(e.what());
+//	    cout << e.what() << endl;
+	}
+	if(test)
     {
         cout << " failed 1st group test at the first subtract function test..." << endl;
         return 1;
     }
-    a = a - c;
-    if( a != a)
+
+    try
+    {
+        test++;
+        e = b - c;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+//        cout << e.what() << endl;
+    }
+    if(test)
     {
         cout << " failed 1st group test at the second subtract function test..." << endl;
         return 1;
     }
-	a = a -  b;
-	if( a != a)
+
+    try
+    {
+        test++;
+        e = c - b;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+//        cout << e.what() << endl;
+    }
+    if(test)
     {
         cout << " failed 1st group test at the third subtract function test..." << endl;
         return 1;
     }
-	a = a - d;
-	if( a != a)
+    try
+    {
+        test++;
+        e = e - d;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+//        cout << e.what() << endl;
+    }
+	if(test)
     {
         cout << " failed 1st group test at the forth subtract function test..." << endl;
         return 1;
@@ -83,40 +124,36 @@ int testSubtraction()
 
 	e = a;
 
-	a = a - e;
-//	a.Mprint();
-//	e.Mprint();
 
-	if ( a != 0*e)
+	e = a - a;
+	if ( e == a || e != 0*a)
     {
         cout << " failed 2nd group test at the first subtract function test..." << endl;
         return 1;
 
     }
     // assignment operator set "e" to "b" and subtract
-	a = b;
-	a = a - b;
-//	a.Mprint();
-//	b.Mprint();
-	if ( a != 0*b)
+	e = b;
+	e = b - b;
+	if ( e == b || e != 0*b)
     {
         cout << " failed 2nd group test at the second subtract function test..." << endl;
         return 1;
 
     }
 	// assignment operator set "e" to "c" and subtract
-	a = c;
-	a = a - c;
-	if ( a == c || a != 0*c)
+	e = c;
+	e = c - c;
+	if ( e == c || e != 0*c)
     {
         cout << " failed 2nd group test at the third subtract function test..." << endl;
         return 1;
 
     }
 	// assignment operator set "e" to "d" and subtract
-	a = d;
-	a = a - d;
-	if ( a == d || a != 0*d)
+	e = d;
+	e = d - d;
+	if ( e == d || e != 0*d)
     {
         cout << " failed 2nd group test at the fourth subtract function test..." << endl;
         return 1;

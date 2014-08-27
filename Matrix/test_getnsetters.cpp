@@ -10,29 +10,110 @@ using std::endl;
 int testGetnSetters()
 {
 	{
+        cout << " Matrix Get and Set function Tests..." << endl;
+        int test = 0;
 
-		Matrix a;
-		cout << " Matrix a is " << endl;
-
-		Matrix d(2, 2);
-
-        if ( a != d)
+		Matrix a(20, 10);
+		long double val  = 50;
+		for ( int i = 0; i < a.GetMatrixSize(); i++)
         {
-            cout << " " << endl;
+            a.SetMatrixElement(i, val - 2*i);
         }
-		cout << " Matrix a rows = " << a.GetMatrixRows() << " Matrix a columns = " << a.GetMatrixCols() << endl;
 
-		Matrix b(10, 10), c(5, 5);
-		cout << " Matrix b is " << endl;
-		b.Mprint();
-		cout << " Matrix b rows = " << b.GetMatrixRows() << " Matrix b columns = " << b.GetMatrixCols() << endl;
 
-		cout << " Matrix c is " << endl;
-		c.Mprint();
-		cout << " Matrix c rows = " << c.GetMatrixRows() << " Matrix c columns = " << c.GetMatrixCols() << endl;
-//		system("pause");
+		Matrix d(20, 10);
+		for(int j = a.GetMatrixRows(); j > 0; j--)
+        {
+            for(int k = 0; k < a.GetMatrixCols(); k++)
+            {
+                d.SetMatrixRCElement(j, k+1, a.GetMatrixRCElement(j, k+1));
+            }
+        }
 
+        if(a != d)
+        {
+            LOG_DEBUG(" 1st Get and Set Test failed..." );
+            cout << " 1st Get and Set Test failed..." << endl;
+            return 1;
+        }
+
+/// attempting to set a value outside a valid index range
+        try
+        {
+            test++;
+            a.SetMatrixElement(201, 10);
+        }
+        catch(std::runtime_error(e))
+        {
+            --test;
+ //           cout << e.what() << endl;
+            LOG_DEBUG(e.what());
+        }
+        if(test)
+        {
+            cout << " 2nd Get and Set Test failed" << endl;
+            return 1;
+        }
+
+/// attempting to set a value outside a valid row value
+        try
+        {
+            test++;
+            a.SetMatrixRCElement(0, 10, 2);
+        }
+        catch(std::runtime_error(e))
+        {
+            --test;
+ //           cout << e.what() << endl;
+            LOG_DEBUG(e.what());
+        }
+        if(test)
+        {
+            cout << " 3nd Get and Set Test failed" << endl;
+            return 1;
+        }
+
+/// attempting to set a value outside a valid column value
+
+        try
+        {
+            test++;
+            a.SetMatrixRCElement(20, 0, 2);
+        }
+        catch(std::runtime_error(e))
+        {
+            --test;
+//            cout << e.what() << endl;
+            LOG_DEBUG(e.what());
+        }
+        if(test)
+        {
+            cout << " 4th Get and Set Test failed" << endl;
+            return 1;
+        }
+
+/// attempting to set a value outside a valid index range
+
+        try
+        {
+            test++;
+            a.SetMatrixElement(-2, 2);
+        }
+        catch(std::runtime_error(e))
+        {
+            --test;
+ //           cout << e.what() << endl;
+            LOG_DEBUG(e.what());
+        }
+        if(test)
+        {
+            cout << " 5th Get and Set Test failed" << endl;
+            return 1;
+        }
+
+
+        cout << " Matrix Get and Set Functions Passed!" << endl << endl;
 	}
-//	system("pause");
+
 	return 0;
 }

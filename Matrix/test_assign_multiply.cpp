@@ -46,9 +46,20 @@ int testAssignMultiply()
 		d.SetMatrixElement(i - 1, val+2);
 	}
 
-	b *= d;
+    int test = 0;
+	try
+	{
+	    test++;
+	    b *= d;
+	}
+	catch(std::runtime_error(e))
+	{
+	    --test;
+	    LOG_DEBUG(e.what())
+//	    cout << e.what() << endl;
+	}
 
-	if(b != b)
+	if(test)
     {
         cout << " Matrix Assign Multiply first test failed" << endl;
         return 1;
@@ -56,8 +67,18 @@ int testAssignMultiply()
 //    cout << "b" << endl;
 //    b.Mprint();
 
-	c *= d;
-    if(c != c)
+    try
+    {
+        test++;
+        c *= d;
+    }
+    catch(std::runtime_error(e))
+    {
+        --test;
+        LOG_DEBUG(e.what());
+//        cout << e.what() << endl;
+    }
+    if(test)
     {
         cout << " Matrix Assign Multiply second test failed" << endl;
         return 1;

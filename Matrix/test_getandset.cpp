@@ -11,7 +11,7 @@ int testGetandSet()
 {
 	{
 
-		cout << " Matrix Get and Set function test..." << endl;
+		cout << " 2nd Matrix Get and Set Function Test..." << endl;
 		Matrix a;
         Matrix d(2, 2);
 
@@ -24,7 +24,7 @@ int testGetandSet()
 		Matrix b(10, 10), c(10, 10);
 
 		c = b;
-		if( a != d)
+		if( c != b)
         {
             cout << " Matrix 1st Get & Set Function, second test failed..." << endl;
             return 1;
@@ -79,7 +79,7 @@ int testGetandSet()
             return 1;
         }
 
-        cout << " Matrix Get and Set function passed!" << endl << endl;
+        cout << " 2nd Matrix Get and Set Function Tests Passed!" << endl << endl;
 
 	}
 
