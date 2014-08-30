@@ -170,11 +170,6 @@ class Matrix
                 }
             }
         }
-        if(mdbug)
-        {
-            a.Mprint();
-            I.Mprint();
-        }
     }
 
 /// Upper and Lower matrix decomposition routine manipulates all the off diagonal elements to zero
@@ -198,10 +193,6 @@ class Matrix
                     }
                 }
             }
-        }
-        if(mdbug)
-        {
-            a.Mprint();
         }
     }
 
@@ -332,8 +323,8 @@ class Matrix
 			this->ePtr[index] = 0;
 		}
 
-//        LOG_DEBUG(" First Constructor Called ...  and the address of ePtr is ", &(this->ePtr));
-//        LOG_DEBUG(" First Constructor Called ...  and the ePtr points to address ", (this->ePtr));
+        LOG_DEBUG(" First Constructor Called ...  and the address of ePtr is ", &(this->ePtr));
+        LOG_DEBUG(" First Constructor Called ...  and the ePtr points to address ", (this->ePtr));
 //        LOG_DEBUG(" First Constructor Called ...  and the value of ePtr is ", *(this->ePtr));
 	}
 
@@ -341,15 +332,15 @@ class Matrix
 	~Matrix()
 	{
 	    LOG_DEBUG(" Destructor Called....");
-//	    LOG_DEBUG(" Destructor Called... and the address of ePtr is " << &(this->ePtr));
-//  		LOG_DEBUG(" Destructor Called... and the ePtr points to address " << (this->ePtr));
-//  		LOG_DEBUG(" Destructor Called... and the value of Ptr is " << *(this->ePtr));
+	    LOG_DEBUG(" Destructor Called... and the address of ePtr is ", &(this->ePtr));
+  		LOG_DEBUG(" Destructor Called... and the ePtr points to address ", (this->ePtr));
+//  		LOG_DEBUG(" Destructor Called... and the value of Ptr is ", *(this->ePtr));
 
 		delete[] this->ePtr;
 		this->ePtr = nullptr;
-//		LOG_DEBUG(" Destructor Complete... and the address of ePtr is " << &(this->ePtr));
-//  		LOG_DEBUG(" Destructor Complete... and ePtr points to address  " << (this->ePtr));
-//
+		LOG_DEBUG(" Destructor Complete... and the address of ePtr is  ", &(this->ePtr));
+  		LOG_DEBUG(" Destructor Complete... and ePtr points to address  ", (this->ePtr));
+
 
 	}
 
@@ -902,10 +893,8 @@ const Matrix GetMatrixHilbert(int dimension) const
 const Matrix GetMatrixIdentity()
 {
     LOG_DEBUG(" Called Identity Matrix set up function....")
-//    if(mdbug)
-//    {
-//        cout << " Set up the Identity Matrix given rows and columns" << endl;
-//    }
+
+/// Set up the Identity Matrix given rows and columns
     if(this->GetMatrixRows() != this->GetMatrixCols())
     {
         std::stringstream ss;
@@ -935,10 +924,8 @@ const Matrix GetMatrixIdentity()
 const Matrix GetMatrixIdentity(int rows)
 {
     LOG_DEBUG(" Called Identity Matrix setup, rows specified");
-//    if(mdbug)
-//    {
-//        cout << " Set up the Identity Matrix given rows" << endl;
-//    }
+
+/// set up the identity matrix
     Matrix I(rows, rows);
 
     for( int i = 0; i < rows; i++)

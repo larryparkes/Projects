@@ -11,7 +11,7 @@ int testConstructorDestructor()
 {
 	{
         int test = 0;
-	    cout << " Matrix Constructors test..."<< endl;
+	    cout << " Matrix Constructors Test..."<< endl;
         try
         {
             test++;

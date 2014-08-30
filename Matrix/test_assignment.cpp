@@ -10,7 +10,7 @@ using std::endl;
 int testAssignment()
 {
 
-	cout << " Matrix Assignment test a = b...." << endl;
+	cout << " Matrix Assignment Test a = b...." << endl;
 	Matrix a(5, 5), b(3, 3), c (5, 5);
 
 	//set up the a matrix,
