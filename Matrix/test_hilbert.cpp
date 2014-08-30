@@ -15,6 +15,7 @@ int testHilbert()
     /// calculate the inverse and then perform H * (H)^1 which should
     /// produce the identity Matrix.
     cout << " Matrix - Hilbert Matrix Test function " << endl;
+    LOG_DEBUG(" Matrix  - Hilbert Matrix function Test...", "\n");
 	Matrix H, b, c, I;
 //	long double z;
 
@@ -60,6 +61,7 @@ int testHilbert()
     }
 
     cout << " Matrix - Hilbert Matrix Test Passed!" << endl << endl;
+    LOG_DEBUG(" Matrix - Hilbert Matrix function Tests Passed!", "\n", "\n");
 
 	return 0;
 }

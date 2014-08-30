@@ -11,6 +11,7 @@ int testMMltiplication()
 {
 	{
 		cout << " Matrix Multiply c = c * d Test...." << endl;
+		LOG_DEBUG(" Matrix Multiply function Test a = a * b; ...", "\n");
         Matrix b(2, 3);
         Matrix c(3, 2);
         Matrix d(4, 5);
@@ -115,6 +116,7 @@ int testMMltiplication()
             return 1;
         }
         cout << " Matrix Multiply Passed!" << endl << endl;
+        LOG_DEBUG(" Matrix Multiply Test Passed!", "\n", "\n");
 
         return 0;
 	}

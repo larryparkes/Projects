@@ -12,6 +12,7 @@ int testGetandSet()
 	{
 
 		cout << " 2nd Matrix Get and Set Function Test..." << endl;
+		LOG_DEBUG(" 2nd Matrix Get and Set Function Tests...", "\n");
 		Matrix a;
         Matrix d(2, 2);
 
@@ -80,6 +81,7 @@ int testGetandSet()
         }
 
         cout << " 2nd Matrix Get and Set Function Tests Passed!" << endl << endl;
+        LOG_DEBUG(" 2nd Matrix Get and Set Function Test Passed!", "\n", "\n");
 
 	}
 

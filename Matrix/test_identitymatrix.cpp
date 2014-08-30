@@ -14,6 +14,9 @@ int testIdentity()
 	/// Matrix Identity Test function
 
 	cout << " Matrix Identity test function " << endl;
+//	LOG_DEBUG(" Matrix Identity Test function....!", "\n");
+
+
     Matrix a, b;
     for(int i = 2; i < 10; i++)
     {
@@ -70,6 +73,7 @@ int testIdentity()
     }
 
     cout << " Matrix Identity Test Passed!" << endl << endl;
+    LOG_DEBUG(" Matrix Identity Test Passed!", "\n", "\n");
 
 	return 0;
 }

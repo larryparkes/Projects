@@ -11,6 +11,7 @@ int testAssignment()
 {
 
 	cout << " Matrix Assignment Test a = b...." << endl;
+	LOG_DEBUG(" Matrix Assignment Test a = b; ...", "\n");
 	Matrix a(5, 5), b(3, 3), c (5, 5);
 
 	//set up the a matrix,
@@ -34,5 +35,6 @@ int testAssignment()
     }
 
     cout << " Matrix Assignment Passed!" << endl << endl;
+    LOG_DEBUG(" Matrix Assignment Test Passed!", "\n", "\n");
 	return 0;
 }

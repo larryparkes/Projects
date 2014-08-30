@@ -14,6 +14,7 @@ int testSubtraction()
 	// a is a m x n, b is a m x y, c n x y, d is a n x z
 
 	cout << " Matrix Subtraction a = c - d Test..." << endl;
+	LOG_DEBUG(" Matrix Subtraction Function Test a = c - d; ...", "\n");
 	Matrix a(4, 2), b(4, 5), c(2, 5), d(2, 3), e;
 
 	//set up the a matrix,
@@ -160,5 +161,6 @@ int testSubtraction()
 
     }
     cout << " Matrix Subtract Passed!" << endl << endl;
+    LOG_DEBUG(" Matrix Subtraction function Test Passed!", "\n", "\n");
 	return 0;
 }

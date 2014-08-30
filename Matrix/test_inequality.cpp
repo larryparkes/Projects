@@ -11,9 +11,9 @@ int testInequality()
 {
 
 	cout << " Matrix Inequality a != b Test... " << endl;
+	LOG_DEBUG(" Matrix Inequality Test a != b; ...", "\n");
 	Matrix a(5, 5), b(5, 5), c(4, 5);
 
-	//set up the a matrix,
 
 	int mSize = a.GetMatrixSize();
 	for (int i = 0; i < mSize; i++)
@@ -39,5 +39,6 @@ int testInequality()
 	}
 
 	cout << " Matrix Inequality Test Passed!" << endl << endl;
+	LOG_DEBUG(" Matrix Inequality Test Passed!", "\n", "\n");
 	return 0;
 }

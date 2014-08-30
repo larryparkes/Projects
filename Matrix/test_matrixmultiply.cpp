@@ -13,6 +13,7 @@ int testMatrixMultiply()
 
 		/* Test matrix multiply of very large matrices;*/
 		cout << " Large Matrix Multiply Test ..." << endl;
+		LOG_DEBUG( " Large Matrix Multiply Test ...", "   ");
 
 		Matrix a(7, 7), b(7, 7), c(7, 7), I(7, 7);
         for(int i = 0; i < I.GetMatrixRows(); i++)
@@ -81,6 +82,7 @@ int testMatrixMultiply()
         }
 
         cout << " Large Matrix Multiply Passed!" << endl << endl;
+        LOG_DEBUG(" Large Matrix Multiply Passed!", "\n", "\n");
 	}
 
 	return 0;

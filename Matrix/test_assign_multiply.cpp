@@ -11,6 +11,7 @@ using std::endl;
 int testAssignMultiply()
 {
     cout << " Matrix Assign Multiply a *= c Test...." << endl;
+    LOG_DEBUG(" Matrix Assign Multiply Test a *= c ...", "\n");
 	Matrix b(2, 3);
 	Matrix c(3, 2);
 	Matrix d(4, 5);
@@ -115,6 +116,7 @@ int testAssignMultiply()
         return 1;
     }
     cout << " Matrix Assign Multiply Passed!" << endl << endl;
+    LOG_DEBUG(" Matrix Assign Multiply Test Passed!", "\n", "\n");
 
 	return 0;
 }

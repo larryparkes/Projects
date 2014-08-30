@@ -12,6 +12,7 @@ int testMatrixInverse()
 	{
 
         cout << " Matrix Inversion a^(-1) Test...." << endl;
+        LOG_DEBUG(" Matrix Inversion a(^-1) Test....", "\n");
 //		cout << "Set up for x" << endl;
 		Matrix a(4, 4), b, c, I(4, 4);
 
@@ -168,6 +169,7 @@ int testMatrixInverse()
             return 1;
         }
         cout << " Matrix Inversion Passed!" << endl << endl;
+        LOG_DEBUG(" Matrix Inversion Passed!", "\n", "\n");
 	}
 
 	return 0;

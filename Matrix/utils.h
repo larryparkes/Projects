@@ -10,6 +10,8 @@
 #define DEBUG_LOGGING 1
 #define DEBUG_FILENAME "matrix_test.txt"
 
+static int line = 0;
+
 struct LoggingSystem
 {
     static std::ostream& GetLogger()
@@ -47,7 +49,7 @@ inline void LogParameters(std::ostream& out, T&& t, Args... rest)
 template <typename... Args>
 inline void Log(std::ostream& out, Args... rest)
 {
-    static int line = 0;
+
     using std::chrono::system_clock;
     std::time_t now = system_clock::to_time_t(system_clock::now());
     std::tm * ptm = std::localtime(&now);
@@ -61,7 +63,9 @@ inline void Log(std::ostream& out, Args... rest)
 
 #define LOG_DEBUG(...) \
     if (DEBUG_LOGGING) \
-        Log(LoggingSystem::GetLogger(), __FILE__, " ", __FUNCTION__, " ", __LINE__, ": ", __VA_ARGS__);
+        Log(LoggingSystem::GetLogger(),  " ", __FUNCTION__, " ", __LINE__, ": ", __VA_ARGS__);
+ //       Log(LoggingSystem::GetLogger(), __FILE__, " ", __FUNCTION__, " ", __LINE__, ": ", __VA_ARGS__);
+
 
 
 #endif // UTILS_H_INCLUDED

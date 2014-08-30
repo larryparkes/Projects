@@ -12,6 +12,7 @@ int testConstructorDestructor()
 	{
         int test = 0;
 	    cout << " Matrix Constructors Test..."<< endl;
+	    LOG_DEBUG(" Matrix Constructor Test....", "\n");
         try
         {
             test++;
@@ -94,6 +95,7 @@ int testConstructorDestructor()
 //        }
 
         cout << " Matrix Constructor Passed!" << endl << endl;
+        LOG_DEBUG(" Matrix Constructor Tests Passed!", "\n", "\n");
 
 	}
 

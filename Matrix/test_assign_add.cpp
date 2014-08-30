@@ -12,6 +12,7 @@ int testAssignAdd()
 	// attempt to add non square matrices m x n + m x y, m x y + n x y & m x y + n x z
 	// a is a m x n, b is a m x y, c n x y, d is a n x z
     cout << " Matrix Assign Addition a += d Test..." << endl;
+    LOG_DEBUG(" Matrix Assign Addition Test a += b; ...", "\n");
 	Matrix a(4, 2), b(4, 5), c(2, 5), d(2, 3), e;
 
 	//set up the a matrix,
@@ -142,6 +143,7 @@ int testAssignAdd()
 
     }
     cout << " Matrix Assign Addition Passed!" << endl << endl;
+    LOG_DEBUG(" Matrix Assign Addition Test Passed!", "\n", "\n");
 
 	return 1;
 }

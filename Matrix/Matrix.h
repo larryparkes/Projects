@@ -265,14 +265,6 @@ class Matrix
 		{
 			ePtr[index] = 0;
 		}
-
-//        if( Matrix::mdbug )
-//        {
-//            LOG_DEBUG("Default Constructor Called ... Rows variable address is ", &(this->mRows));
-//            cout << "Default Constructor Called ... Rows variable address is "<< &(this->mCols) << endl;
-//            cout << "Default Constructor Called ... and the address of ePtr is " << &(this->ePtr) << endl;
-//            cout << "Default Constructor Called ... and ePtr points to " << (this->ePtr) << endl;
-//        }
 	}
 
 /// constructor
@@ -323,8 +315,8 @@ class Matrix
 			this->ePtr[index] = 0;
 		}
 
-        LOG_DEBUG(" First Constructor Called ...  and the address of ePtr is ", &(this->ePtr));
-        LOG_DEBUG(" First Constructor Called ...  and the ePtr points to address ", (this->ePtr));
+        LOG_DEBUG(" Constructor Called ...  and the address of ePtr is ", &(this->ePtr));
+        LOG_DEBUG(" Constructor Called ...  and the ePtr points to address ", (this->ePtr));
 //        LOG_DEBUG(" First Constructor Called ...  and the value of ePtr is ", *(this->ePtr));
 	}
 

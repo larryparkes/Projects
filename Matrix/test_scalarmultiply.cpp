@@ -13,6 +13,7 @@ int testScalarMultiply()
 
 		/*Matrix x;*/
 		cout << " Matrix Scalar Multiply a = c * 2 or 2 * c Test" << endl;
+		LOG_DEBUG(" Matrix Scalar Multiplication function Test a = c * 2 or 2 * c; ...", "\n");
 		Matrix a(4, 4), b, c, I(4, 4), d;
 
 		a.SetMatrixRCElement(1, 1, 0);
@@ -52,6 +53,7 @@ int testScalarMultiply()
         }
 
         cout << " Matrix Scalar Multiply Passed!" << endl << endl;
+        LOG_DEBUG(" Matrix Scalar Multiplication Test Passed!", "\n", "\n");
 	}
 	return 0;
 }

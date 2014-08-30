@@ -11,6 +11,7 @@ int testGetnSetters()
 {
 	{
         cout << " Matrix Get and Set function Tests..." << endl;
+        LOG_DEBUG(" Matrix Get and Set function Tests...", "\n");
         int test = 0;
 
 		Matrix a(20, 10);
@@ -113,6 +114,7 @@ int testGetnSetters()
 
 
         cout << " Matrix Get and Set Functions Passed!" << endl << endl;
+        LOG_DEBUG(" Matrix Get and Set function Tests Passed!", "\n", "\n");
 	}
 
 	return 0;

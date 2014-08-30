@@ -84,11 +84,11 @@ int matrixTest()
         /// test matrix determinant function
         testMatrixDeterminant();
 
-//        /// test Hilbert Matrix function
-//        testHilbert();
-//
-//        /// test matrix identity function
-//        testIdentity();
+        /// test Hilbert Matrix function
+        testHilbert();
+
+        /// test matrix identity function
+        testIdentity();
 
 
 	}

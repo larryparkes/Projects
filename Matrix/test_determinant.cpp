@@ -12,6 +12,7 @@ int testMatrixDeterminant()
 	{
 
         cout << " Matrix Determinant det(a) Test...." << endl;
+        LOG_DEBUG(" Matrix Determinant Test det(a)  ...", "\n");
 //		cout << "Set up for x" << endl;
 		Matrix a(4, 4), b, c, I(4, 4);
 		double z = 0;
@@ -97,6 +98,7 @@ int testMatrixDeterminant()
         }
 
 		cout << " Matrix Determinant Passed!" << endl << endl;
+		LOG_DEBUG(" Matrix Determinant Test Passed!","\n", "\n");
 
     }
 

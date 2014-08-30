@@ -11,6 +11,7 @@ int testEquality()
 {
 
 	cout << " Matrix Equality a == b Test..." << endl;
+	LOG_DEBUG(" Matrix Equality Tests a == b; ...","\n");
 	Matrix a(5, 5), b(5, 5), c(4, 5);
 
 	//set up the a matrix,
@@ -49,6 +50,7 @@ int testEquality()
 	}
 
 	cout << " Matrix Equality Passed!" << endl << endl;
+	LOG_DEBUG(" Matrix Equality Test Passed!", "\n", "\n");
 
 	return 0;
 }

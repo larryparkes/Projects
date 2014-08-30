@@ -12,6 +12,7 @@ int testTranspose()
 	{
 
 		cout << " Matrix Transpose a^t Test" << endl;
+		LOG_DEBUG(" Matrix Transpose function Test a^t ...", "\n");
 //		cout << "Set up for x" << endl;
 		Matrix a(5, 5), b(3, 5), c(4, 1);
         Matrix x, y, z;
@@ -73,6 +74,7 @@ int testTranspose()
             return 1;
         }
 		 cout << " Matrix Transpose Passed!" << endl << endl;
+		 LOG_DEBUG(" Matrix Transpose function Test Passed!", "\n", "\n");
 
 	}
 

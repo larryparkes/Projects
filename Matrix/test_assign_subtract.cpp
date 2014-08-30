@@ -14,6 +14,7 @@ int testAssignSubtract()
 	// a is a m x n, b is a m x y, c n x y, d is a n x z
 
 	cout << " Matrix Assign Subtraction a -= d Test..." << endl;
+	LOG_DEBUG(" Matrix Assign Subtraction Test a -= b; ...","\n");
 	Matrix a(4, 2), b(4, 5), c(2, 5), d(2, 3), e;
 
 	//set up the a matrix,
@@ -147,6 +148,7 @@ int testAssignSubtract()
 
     }
     cout << " Matrix Assign Subtract Passed!" << endl << endl;
+    LOG_DEBUG(" Matrix Assign Subtraction Test Passed!", "\n", "\n");
 	return 0;
 }
 
